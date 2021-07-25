@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/24 19:08:01 by psergio-          #+#    #+#             */
-/*   Updated: 2021/07/24 19:08:01 by psergio-         ###   ########.fr       */
+/*   Created: 2021/07/25 01:57:06 by psergio-          #+#    #+#             */
+/*   Updated: 2021/07/25 01:57:06 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# include <stdio.h>
-# include "../minilibx-linux/mlx.h"
-# include "../libft/libft.h"
-# define SO_LONG_H
+#include "so_long.h"
 
-# define ERR_INVALID_ARGS 1
-
-struct s_x {
-	void	*mlx_ptr;
-	void	*win_ptr;
-};
-
-typedef struct s_x	t_param;
-
-void	handle_error(int err);
-int		validate_args(int argc, char *argv[]);
-
-#endif
+void	handle_error(int err)
+{
+	ft_putstr_fd("Error\n", 2);
+	if (err == ERR_INVALID_ARGS)
+		ft_putstr_fd("Invalid argument.", 2);
+	ft_putchar_fd('\n', 2);
+	exit(err);
+}

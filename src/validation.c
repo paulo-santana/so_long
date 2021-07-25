@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/24 19:08:01 by psergio-          #+#    #+#             */
-/*   Updated: 2021/07/24 19:08:01 by psergio-         ###   ########.fr       */
+/*   Created: 2021/07/25 02:00:29 by psergio-          #+#    #+#             */
+/*   Updated: 2021/07/25 02:00:29 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# include <stdio.h>
-# include "../minilibx-linux/mlx.h"
-# include "../libft/libft.h"
-# define SO_LONG_H
+#include "so_long.h"
 
-# define ERR_INVALID_ARGS 1
+int	validate_args(int argc, char *argv[])
+{
+	char	*file_name;
 
-struct s_x {
-	void	*mlx_ptr;
-	void	*win_ptr;
-};
-
-typedef struct s_x	t_param;
-
-void	handle_error(int err);
-int		validate_args(int argc, char *argv[]);
-
-#endif
+	if (argc != 2)
+		return (0);
+	file_name = argv[1];
+	if (!ft_ends_with(file_name, ".ber"))
+		return (0);
+	return (1);
+}

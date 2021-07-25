@@ -9,7 +9,10 @@ MLX = $(MLX_DIR)/libmlx.a
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC_FILES = main.c
+SRC_FILES = main.c					\
+			error_handling.c		\
+			validation.c
+
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -29,7 +32,7 @@ $(MLX):
 	make -C $(MLX_DIR)
 
 run: all
-	./$(NAME)
+	./$(NAME) files/simple.ber
 
 clean:
 	$(RM) $(OBJ)
@@ -40,3 +43,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: $(LIBFT)

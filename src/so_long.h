@@ -12,15 +12,23 @@
 
 #ifndef SO_LONG_H
 # include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 
 # define SO_LONG_H
 
-# define ERR_INVALID_ARGS 1
+enum e_errors
+{
+	ERR_INVALID_ARGS = EINVAL,
+	ERR_FILE_OPEN,
+};
 
 struct s_game_info {
 	char	*program_name;
+	char	*map_filename;
 };
 
 struct s_window {
@@ -31,7 +39,7 @@ struct s_window {
 typedef struct s_window		t_window;
 typedef struct s_game_info	t_game_info;
 
-void	handle_error(int err);
+void	handle_error();
 int		validate_args(int argc, char *argv[]);
 
 #endif

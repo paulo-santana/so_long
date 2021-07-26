@@ -14,12 +14,10 @@
 
 int	validate_args(int argc, char *argv[])
 {
-	char	*file_name;
-
-	if (argc != 2)
+	if (argc != 2 || !ft_ends_with(argv[1], ".ber"))
+	{
+		errno = EINVAL;
 		return (0);
-	file_name = argv[1];
-	if (!ft_ends_with(file_name, ".ber"))
-		return (0);
+	}
 	return (1);
 }

@@ -12,11 +12,13 @@
 
 #include "so_long.h"
 
-void	handle_error(int err)
+void	handle_error(void)
 {
+	char	*errmsg;
+
+	errmsg = strerror(errno);
 	ft_putstr_fd("Error\n", 2);
-	if (err == ERR_INVALID_ARGS)
-		ft_putstr_fd("Invalid argument.", 2);
+	ft_putstr_fd(errmsg, 2);
 	ft_putchar_fd('\n', 2);
-	exit(err);
+	exit(errno);
 }

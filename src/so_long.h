@@ -39,7 +39,7 @@ struct s_window {
 typedef struct s_window		t_window;
 typedef struct s_game_info	t_game_info;
 
-void	handle_error();
+void	handle_error(void);
 int		validate_args(int argc, char *argv[]);
 
 #endif

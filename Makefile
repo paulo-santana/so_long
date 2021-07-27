@@ -38,8 +38,12 @@ clean:
 	$(RM) $(OBJ)
 
 fclean: clean
-	make -C $(MLX_DIR) clean
-	make -C $(LIBFT_DIR) fclean
+	@echo cleaning minilibx
+	@make -C $(MLX_DIR) clean
+	@echo done!
+	@echo cleaning libft...
+	@make -C $(LIBFT_DIR) fclean
+	@echo done!
 	$(RM) $(NAME)
 
 re: fclean all

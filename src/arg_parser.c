@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   arg_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/25 01:57:06 by psergio-          #+#    #+#             */
-/*   Updated: 2021/07/25 01:57:06 by psergio-         ###   ########.fr       */
+/*   Created: 2021/07/27 00:48:20 by psergio-          #+#    #+#             */
+/*   Updated: 2021/07/27 00:48:20 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*get_error_message(int err)
+t_game_info	*parse_arg(char *args[])
 {
-	char	*messages[sizeof(enum e_errors)];
+	t_game_info	*game_info;
 
-	messages[ERR_INVALID_MAP] = "Invalid map.";
-	return (messages[err]);
-}
-
-void	quit_with_error(int my_errno)
-{
-	char	*errmsg;
-
-	if (errno == 0)
-		errmsg = get_error_message(my_errno);
-	else
-		errmsg = strerror(errno);
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(errmsg, 2);
-	ft_putchar_fd('\n', 2);
-	exit(errno);
+	game_info = malloc(sizeof(t_game_info));
+	if (game_info == NULL)
+		return (NULL);
+	game_info->program_name = args[0];
+	game_info->map_filename = args[1];
+	get_map(game_info);
+	return (game_info);
 }

@@ -11,7 +11,9 @@ OBJ_DIR = obj
 
 SRC_FILES = main.c					\
 			error_handling.c		\
-			validation.c
+			validation.c			\
+			map_parser.c			\
+			arg_parser.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

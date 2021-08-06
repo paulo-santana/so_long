@@ -6,26 +6,41 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
+VALGRIND = valgrind --leak-check=full -q
+
 SRC_DIR = src
 OBJ_DIR = obj
+
+UTILS = src/utils.c
+
+HEADERS = src/so_long.h \
+		  src/utils.h
+
+INCLUDE_DIR = includes
 
 SRC_FILES = main.c					\
 			error_handling.c		\
 			validation.c			\
 			map_parser.c			\
-			arg_parser.c
+			arg_parser.c			\
+			map_generator.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
+CFLAGS = -g -Wall -Werror -Wextra
+CC = clang $(CFLAGS)
+LIBFLAGS = -lft -lmlx -lXext -lX11 -lm
+
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJ)
-	clang $(OBJ) -O3 -g -o $(NAME) -L./libft -lft -L./minilibx-linux -lmlx -lXext -lX11 -lm
+$(NAME): $(LIBFT) $(MLX) $(HEADERS) $(OBJ)
+	$(CC) $(UTILS) $(OBJ) -o $(NAME) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS)
+	cp $(NAME) a.out #for debugging
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p obj
-	clang -O3 -g -c -Wall -Werror -Wextra -o $@ $<
+	$(CC) -O3 -c $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $<
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
@@ -34,7 +49,7 @@ $(MLX):
 	make -C $(MLX_DIR)
 
 run: all
-	./$(NAME) files/simple.ber
+	$(VALGRIND) ./$(NAME) files/simple.ber
 
 clean:
 	$(RM) $(OBJ)
@@ -47,6 +62,7 @@ fclean: clean
 	@make -C $(LIBFT_DIR) fclean
 	@echo done!
 	$(RM) $(NAME)
+	$(RM) a.out
 
 re: fclean all
 

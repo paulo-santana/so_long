@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_parser.c                                       :+:      :+:    :+:   */
+/*   map_generator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/27 00:48:20 by psergio-          #+#    #+#             */
-/*   Updated: 2021/07/27 00:48:20 by psergio-         ###   ########.fr       */
+/*   Created: 2021/08/05 14:21:06 by psergio-          #+#    #+#             */
+/*   Updated: 2021/08/05 14:21:06 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_game_info	*parse_arg(char *args[])
+void	generate_map(t_game_info *game_info)
 {
-	t_game_info	*game_info;
+	t_list	*lst;
+	char	*row;
+	int		i;
 
-	game_info = ft_calloc(sizeof(t_game_info), 1);
-	if (game_info == NULL)
-		quit_with_error(errno, game_info);
-	game_info->program_name = args[0];
-	game_info->map_filename = args[1];
-	get_map(game_info);
-	return (game_info);
+	i = 0;
+	lst = game_info->map_rows;
+	while (lst)
+	{
+		row = lst->content;
+		while (*row)
+			game_info->map[i++] = *row++;
+		lst = lst->next;
+	}
 }

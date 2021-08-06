@@ -11,6 +11,17 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "mlx.h"
+
+void	clear(t_game_info *game_info)
+{
+	if (game_info == NULL)
+		return ;
+	free(game_info->map);
+	ft_lstclear(&(game_info->map_rows), free);
+	close(game_info->map_fd);
+	free(game_info);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -19,8 +30,7 @@ int	main(int argc, char *argv[])
 
 	args_valid = validate_args(argc, argv);
 	if (!args_valid)
-		quit_with_error(errno);
+		quit_with_error(errno, NULL);
 	game_info = parse_arg(argv);
-	printf("the program name is '%s'\n", game_info->program_name);
-	free(game_info);
+	clear(game_info);
 }

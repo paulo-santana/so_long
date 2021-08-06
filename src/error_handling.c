@@ -12,15 +12,22 @@
 
 #include "so_long.h"
 
-char	*get_error_message(int err)
+static char	*get_error_message(int err)
 {
-	char	*messages[sizeof(enum e_errors)];
+	char	*messages[ERR_SIZE];
 
 	messages[ERR_INVALID_MAP] = "Invalid map.";
 	return (messages[err]);
 }
 
-void	quit_with_error(int my_errno)
+static void	print_error(char *message)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(message, 2);
+	ft_putchar_fd('\n', 2);
+}
+
+void	quit_with_error(int my_errno, t_game_info *game_info)
 {
 	char	*errmsg;
 
@@ -28,8 +35,7 @@ void	quit_with_error(int my_errno)
 		errmsg = get_error_message(my_errno);
 	else
 		errmsg = strerror(errno);
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(errmsg, 2);
-	ft_putchar_fd('\n', 2);
-	exit(errno);
+	print_error(errmsg);
+	clear(game_info);
+	exit(my_errno);
 }

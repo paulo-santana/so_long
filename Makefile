@@ -30,7 +30,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CFLAGS = -g -Wall -Werror -Wextra
 CC = clang $(CFLAGS)
-LIBFLAGS = -lft -lmlx -lXext -lX11 -lm
+LIBFLAGS = -lft -lmlx -lXext -lX11
 
 all: $(NAME)
 

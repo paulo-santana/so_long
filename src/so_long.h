@@ -12,12 +12,16 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+# include <stddef.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
+# define XK_MISCELLANY
+# include <X11/keysymdef.h>
+# include <X11/X.h>
 
 # define ERR_SIZE 1
 
@@ -29,6 +33,7 @@ struct s_game_info {
 	int		map_height;
 	t_list	*map_rows;
 	char	*map;
+	size_t	player_pos;
 };
 
 struct s_window {

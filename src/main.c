@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "mlx.h"
 
 void	clear(t_game_info *game_info)
 {
@@ -25,9 +24,25 @@ void	clear(t_game_info *game_info)
 
 int	key_handler(int keycode, void *param)
 {
-	(void) param;
-	printf("%d - %c\n", keycode, keycode);
+	t_game_info	*game;
+
+	game = param;
+	if (keycode == XK_Escape)
+		exit(0);
+	if (keycode == 'w')
+		printf("moving player up\n");
+	else if (keycode == 'a')
+		printf("moving player left\n");
+	else if (keycode == 's')
+		printf("moving player down\n");
+	else if (keycode == 'd')
+		printf("moving player right\n");
 	return (0);
+}
+
+int	destroy_handler(void)
+{
+	exit(0);
 }
 
 void	start_game(t_game_info *game_info)
@@ -44,7 +59,8 @@ void	start_game(t_game_info *game_info)
 			game_info->program_name);
 	if (window->win == NULL)
 		quit_with_error(errno, game_info);
-	mlx_key_hook(window->win, key_handler, game_info);
+	mlx_hook(window->win, KeyPress, KeyPressMask, key_handler, game_info);
+	mlx_hook(window->win, DestroyNotify, NoEventMask, destroy_handler, game_info);
 	mlx_loop(window->mlx_ptr);
 	mlx_destroy_window(window->mlx_ptr, window->win);
 	mlx_destroy_display(window->mlx_ptr);

@@ -45,22 +45,22 @@ int	destroy_handler(void)
 	exit(0);
 }
 
-void	start_game(t_game_info *game_info)
+void	start_game(t_game_info *game)
 {
 	t_window	*window;
 
 	window = ft_calloc(sizeof(t_window), 1);
 	if (window == NULL)
-		quit_with_error(errno, game_info);
+		quit_with_error(errno, game);
 	window->mlx_ptr = mlx_init();
 	if (window->mlx_ptr == NULL)
-		quit_with_error(errno, game_info);
+		quit_with_error(errno, game);
 	window->win = mlx_new_window(window->mlx_ptr, 800, 600,
-			game_info->program_name);
+			game->program_name);
 	if (window->win == NULL)
-		quit_with_error(errno, game_info);
-	mlx_hook(window->win, KeyPress, KeyPressMask, key_handler, game_info);
-	mlx_hook(window->win, DestroyNotify, NoEventMask, destroy_handler, game_info);
+		quit_with_error(errno, game);
+	mlx_hook(window->win, KeyPress, KeyPressMask, key_handler, game);
+	mlx_hook(window->win, DestroyNotify, NoEventMask, destroy_handler, game);
 	mlx_loop(window->mlx_ptr);
 	mlx_destroy_window(window->mlx_ptr, window->win);
 	mlx_destroy_display(window->mlx_ptr);

@@ -23,6 +23,8 @@ SRC_FILES = main.c					\
 			validation.c			\
 			map_parser.c			\
 			arg_parser.c			\
+			event_handlers.c		\
+			movement.c				\
 			map_generator.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -34,11 +36,11 @@ LIBFLAGS = -lft -lmlx -lXext -lX11
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(HEADERS) $(OBJ)
+$(NAME): $(LIBFT) $(MLX) $(OBJ)
 	$(CC) $(UTILS) $(OBJ) -o $(NAME) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS)
 	cp $(NAME) a.out #for debugging
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p obj
 	$(CC) -O3 -c $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $<
 
@@ -49,10 +51,11 @@ $(MLX):
 	make -C $(MLX_DIR)
 
 run: all
-	$(VALGRIND) ./$(NAME) files/simple.ber
+	$(VALGRIND) ./$(NAME) files/multiple_collectibles.ber
 
 clean:
 	$(RM) $(OBJ)
+	$(RM) vgcore*
 
 fclean: clean
 	@echo cleaning minilibx

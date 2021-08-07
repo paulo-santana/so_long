@@ -12,25 +12,37 @@
 
 #include "utils.h"
 
-void	dump_info(t_game_info *game)
+void	print_coordinates(size_t pos, int width)
+{
+	printf("%lux%lu",
+		pos / width,
+		pos % width);
+}
+
+void	dump_info(t_game_state *game)
 {
 	printf("program name: %s\n", game->program_name);
 	printf("map name: %s\n", game->map_filename);
-	printf("map width x height: %dx%d\n", game->map_width, game->map_height);
+	printf("map dimensions: %dx%d\n", game->map_width, game->map_height);
+	printf("player position: ");
+	print_coordinates(game->player_pos, game->map_width);
+	printf("\n");
+	printf("moves: %lu\n", game->movement_count);
+	printf("collectibles: %lu/%lu\n", game->collected_collectibles,
+		game->total_collectibles);
 }
 
-void	print_map(t_game_info *gi)
+void	print_map(t_game_state *gi)
 {
 	int	i;
 	int	map_size;
 
 	i = 0;
 	map_size = gi->map_height * gi->map_width;
-	while (i < map_size)
+	while (i < gi->map_height)
 	{
-		ft_putchar_fd((gi->map)[i], 1);
+		write(1, &gi->map[i * gi->map_width], gi->map_width);
 		i++;
-		if (i % gi->map_width == 0)
-			ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', 1);
 	}
 }

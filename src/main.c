@@ -12,40 +12,17 @@
 
 #include "so_long.h"
 
-void	clear(t_game_info *game_info)
+void	clear(t_game_state *state)
 {
-	if (game_info == NULL)
+	if (state == NULL)
 		return ;
-	free(game_info->map);
-	ft_lstclear(&(game_info->map_rows), free);
-	close(game_info->map_fd);
-	free(game_info);
+	free(state->map);
+	ft_lstclear(&(state->map_rows), free);
+	close(state->map_fd);
+	free(state);
 }
 
-int	key_handler(int keycode, void *param)
-{
-	t_game_info	*game;
-
-	game = param;
-	if (keycode == XK_Escape)
-		exit(0);
-	if (keycode == 'w')
-		printf("moving player up\n");
-	else if (keycode == 'a')
-		printf("moving player left\n");
-	else if (keycode == 's')
-		printf("moving player down\n");
-	else if (keycode == 'd')
-		printf("moving player right\n");
-	return (0);
-}
-
-int	destroy_handler(void)
-{
-	exit(0);
-}
-
-void	start_game(t_game_info *game)
+void	start_game(t_game_state *game)
 {
 	t_window	*window;
 
@@ -70,13 +47,13 @@ void	start_game(t_game_info *game)
 
 int	main(int argc, char *argv[])
 {
-	int			args_valid;
-	t_game_info	*game_info;
+	int				args_valid;
+	t_game_state	*state;
 
 	args_valid = validate_args(argc, argv);
 	if (!args_valid)
 		quit_with_error(errno, NULL);
-	game_info = parse_arg(argv);
-	start_game(game_info);
-	clear(game_info);
+	state = parse_arg(argv);
+	start_game(state);
+	clear(state);
 }

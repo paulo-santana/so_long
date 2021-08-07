@@ -17,6 +17,7 @@ static char	*get_error_message(int err)
 	char	*messages[ERR_SIZE];
 
 	messages[ERR_INVALID_MAP] = "Invalid map.";
+	messages[ERR_MULTIPLAYER] = "Multiplayer is not implemented yet.";
 	return (messages[err]);
 }
 
@@ -27,7 +28,7 @@ static void	print_error(char *message)
 	ft_putchar_fd('\n', 2);
 }
 
-void	quit_with_error(int my_errno, t_game_info *game_info)
+void	quit_with_error(int my_errno, t_game_state *state)
 {
 	char	*errmsg;
 
@@ -36,6 +37,6 @@ void	quit_with_error(int my_errno, t_game_info *game_info)
 	else
 		errmsg = strerror(errno);
 	print_error(errmsg);
-	clear(game_info);
+	clear(state);
 	exit(my_errno);
 }

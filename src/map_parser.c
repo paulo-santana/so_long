@@ -91,8 +91,8 @@ void	parse_map(t_game_state *state)
 	int	map_size;
 
 	map_size = state->map_width * state->map_height;
-	state->map = ft_calloc(map_size, 1);
-	if (state->map == NULL)
+	state->map_mem = ft_calloc(map_size, 1);
+	if (state->map_mem == NULL)
 		quit_with_error(errno, state);
 	generate_map(state);
 	dump_info(state);

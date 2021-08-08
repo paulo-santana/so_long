@@ -41,7 +41,7 @@ void	print_map(t_game_state *gi)
 	map_size = gi->map_height * gi->map_width;
 	while (i < gi->map_height)
 	{
-		write(1, &gi->map[i * gi->map_width], gi->map_width);
+		write(1, &gi->map_mem[i * gi->map_width], gi->map_width);
 		i++;
 		ft_putchar_fd('\n', 1);
 	}

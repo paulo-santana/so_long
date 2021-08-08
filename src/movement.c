@@ -37,21 +37,21 @@ void	handle_exit(t_game_state *state)
 	if (state->collected_collectibles < state->total_collectibles)
 		return ;
 	printf("Congratula...tulations!\n");
-	exit(0);
+	finish();
 }
 
 void	move_to(size_t intended_position, t_game_state *state)
 {
 	if (intended_position == state->player_pos)
 		return ;
-	if (state->map[intended_position] == '#')
+	if (state->map_mem[intended_position] == SL_WALL)
 		return ;
-	if (state->map[intended_position] == 'E')
+	if (state->map_mem[intended_position] == SL_EXIT)
 		return (handle_exit(state));
-	if (state->map[intended_position] == 'C')
+	if (state->map_mem[intended_position] == SL_COLLECTIBLE)
 		state->collected_collectibles++;
-	state->map[intended_position] = '*';
-	state->map[state->player_pos] = '~';
+	state->map_mem[intended_position] = SL_PLAYER;
+	state->map_mem[state->player_pos] = SL_WATER;
 	state->player_pos = intended_position;
 	state->movement_count++;
 }

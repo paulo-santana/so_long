@@ -15,19 +15,19 @@
 void	get_map_entity(t_game_state *state, int i, char entity)
 {
 	if (entity == '0')
-		state->map[i] = '~';
+		state->map_mem[i] = '~';
 	else if (entity == '1')
-		state->map[i] = '#';
+		state->map_mem[i] = '#';
 	else
-		state->map[i] = entity;
-	if (state->map[i] == 'P')
+		state->map_mem[i] = entity;
+	if (state->map_mem[i] == 'P')
 	{
 		if (state->player_pos == 0)
 			state->player_pos = i;
 		else
 			quit_with_error(ERR_MULTIPLAYER, state);
 	}
-	else if (state->map[i] == 'C')
+	else if (state->map_mem[i] == 'C')
 		state->total_collectibles++;
 }
 

@@ -13,13 +13,18 @@
 #include "so_long.h"
 #include "utils.h"
 
+void	finish(void)
+{
+	exit(0);
+}
+
 int	key_handler(int keycode, void *param)
 {
 	t_game_state	*state;
 
 	state = param;
 	if (keycode == XK_Escape)
-		exit(0);
+		finish();
 	if (keycode == 'w')
 		move(DIRECTION_UP, state);
 	else if (keycode == 'a')
@@ -35,5 +40,12 @@ int	key_handler(int keycode, void *param)
 
 int	destroy_handler(void)
 {
-	exit(0);
+	finish();
+	return (0);
+}
+
+int	handle_expose(t_game_state *state)
+{
+	(void)state;
+	return (printf("handle expose called\n"));
 }

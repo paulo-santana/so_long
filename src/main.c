@@ -5,44 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/25 00:02:11 by psergio-          #+#    #+#             */
-/*   Updated: 2021/07/25 00:02:11 by psergio-         ###   ########.fr       */
+/*   Created: 2021/08/08 16:49:08 by psergio-          #+#    #+#             */
+/*   Updated: 2021/08/08 16:49:08 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "utils.h"
 
 void	clear(t_game_state *state)
 {
 	if (state == NULL)
 		return ;
-	free(state->map);
+	free(state->map_mem);
 	ft_lstclear(&(state->map_rows), free);
 	close(state->map_fd);
 	free(state);
 }
 
-void	start_game(t_game_state *game)
+void	start_game(t_game_state *state)
 {
-	t_window	*window;
+	t_window	*mlx;
 
-	window = ft_calloc(sizeof(t_window), 1);
-	if (window == NULL)
-		quit_with_error(errno, game);
-	window->mlx_ptr = mlx_init();
-	if (window->mlx_ptr == NULL)
-		quit_with_error(errno, game);
-	window->win = mlx_new_window(window->mlx_ptr, 800, 600,
-			game->program_name);
-	if (window->win == NULL)
-		quit_with_error(errno, game);
-	mlx_hook(window->win, KeyPress, KeyPressMask, key_handler, game);
-	mlx_hook(window->win, DestroyNotify, NoEventMask, destroy_handler, game);
-	mlx_loop(window->mlx_ptr);
-	mlx_destroy_window(window->mlx_ptr, window->win);
-	mlx_destroy_display(window->mlx_ptr);
-	free(window->mlx_ptr);
-	free(window);
+	mlx = ft_calloc(sizeof(t_window), 1);
+	if (mlx == NULL)
+		quit_with_error(errno, state);
+	mlx->mlx_ptr = mlx_init();
+	if (mlx->mlx_ptr == NULL)
+		quit_with_error(errno, state);
+	mlx->window = mlx_new_window(mlx->mlx_ptr, 800, 600,
+			state->program_name);
+	if (mlx->window == NULL)
+		quit_with_error(errno, state);
+	state->mlx = mlx;
+	mlx_hook(mlx->window, KeyPress, KeyPressMask, key_handler, state);
+	mlx_hook(mlx->window, DestroyNotify, NoEventMask, destroy_handler, state);
+	mlx_expose_hook(mlx->window, handle_expose, state);
+	mlx_loop(mlx->mlx_ptr);
+	mlx_destroy_window(mlx->mlx_ptr, mlx->window);
+	mlx_destroy_display(mlx->mlx_ptr);
+	free(mlx->mlx_ptr);
+	free(mlx);
 }
 
 int	main(int argc, char *argv[])

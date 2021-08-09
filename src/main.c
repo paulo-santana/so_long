@@ -27,9 +27,7 @@ void	start_game(t_game_state *state)
 {
 	t_window	*mlx;
 
-	mlx = ft_calloc(sizeof(t_window), 1);
-	if (mlx == NULL)
-		quit_with_error(errno, state);
+	mlx = &state->mlx;
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		quit_with_error(errno, state);
@@ -37,7 +35,6 @@ void	start_game(t_game_state *state)
 			state->program_name);
 	if (mlx->window == NULL)
 		quit_with_error(errno, state);
-	state->mlx = mlx;
 	mlx_hook(mlx->window, KeyPress, KeyPressMask, key_handler, state);
 	mlx_hook(mlx->window, DestroyNotify, NoEventMask, destroy_handler, state);
 	mlx_expose_hook(mlx->window, handle_expose, state);
@@ -45,7 +42,6 @@ void	start_game(t_game_state *state)
 	mlx_destroy_window(mlx->mlx_ptr, mlx->window);
 	mlx_destroy_display(mlx->mlx_ptr);
 	free(mlx->mlx_ptr);
-	free(mlx);
 }
 
 int	main(int argc, char *argv[])

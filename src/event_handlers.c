@@ -46,6 +46,6 @@ int	destroy_handler(void)
 
 int	handle_expose(t_game_state *state)
 {
-	(void)state;
-	return (printf("handle expose called\n"));
+	draw_map(state);
+	return (0);
 }

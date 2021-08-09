@@ -44,10 +44,7 @@ void	generate_map(t_game_state *state)
 	{
 		row = lst->content;
 		while (*row)
-		{
-			get_map_entity(state, i, *row++);
-			i++;
-		}
+			get_map_entity(state, i++, *row++);
 		lst = lst->next;
 	}
 }

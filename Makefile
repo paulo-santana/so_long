@@ -19,12 +19,13 @@ HEADERS = src/so_long.h \
 INCLUDE_DIR = includes
 
 SRC_FILES = main.c					\
-			error_handling.c		\
+			error_handlers.c		\
 			validation.c			\
 			map_parser.c			\
 			arg_parser.c			\
 			event_handlers.c		\
 			movement.c				\
+			map_renderer.c 			\
 			map_generator.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))

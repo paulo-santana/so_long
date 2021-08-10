@@ -43,34 +43,33 @@ struct s_window {
 	void	*window;
 };
 
-struct s_tile {
-	void	*img;
+struct s_img_data {
+	char	*img;
 	void	*img_ptr;
-	int		index;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_size;
+	int		endian;
+};
+
+struct s_tile {
+	t_image_data	img_data;
+	int				index;
 };
 
 struct s_map_textures {
 	t_tile	floor;
-	t_tile	north_wall;
+	t_tile	wall;
 	t_tile	collectible;
 	t_tile	exit;
 };
 
-struct s_img_data {
-	int	bits_per_pixel;
-	int	line_size;
-	int	endian;
-};
-
 struct s_map {
-	void			*img;
-	void			*img_ptr;
-	void			*sprites_img;
-	void			*sprites_img_ptr;
 	int				width;
 	int				height;
-	t_image_data	map_img_data;
-	t_image_data	map_sprites_data;
+	t_image_data	img_data;
+	t_image_data	sprites_data;
 };
 
 struct s_game_state {

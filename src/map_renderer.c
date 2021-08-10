@@ -11,27 +11,48 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <errno.h>
+
+static void	get_mlx_image(t_game_state *state,
+		t_image_data *data, int width, int height)
+{
+	data->img_ptr = mlx_new_image(state->mlx.mlx_ptr, width, height);
+	if (data->img_ptr == NULL)
+		quit_with_error(errno, state);
+	data->img = mlx_get_data_addr(data->img_ptr, &data->bits_per_pixel,
+			&data->line_size, &data->endian);
+	if (data->img == NULL)
+		quit_with_error(errno, state);
+	data->width = width;
+	data->height = height;
+}
 
 static void	get_map_sprites(t_game_state *state)
 {
 	int				width;
 	int				height;
-	t_image_data	*img_data;
+	t_image_data	*sprites;
 
-	img_data = &state->map.map_sprites_data;
-	state->map.sprites_img_ptr = mlx_xpm_file_to_image(
+	sprites = &state->map.sprites_data;
+	sprites->img_ptr = mlx_xpm_file_to_image(
 			state->mlx.mlx_ptr, TILE_SET, &width, &height);
-	state->map.sprites_img = mlx_get_data_addr(state->map.sprites_img_ptr,
-			&img_data->bits_per_pixel, &img_data->line_size, &img_data->endian);
+	sprites->img = mlx_get_data_addr(sprites->img_ptr, &sprites->bits_per_pixel,
+			&sprites->line_size, &sprites->endian);
+	sprites->width = width;
+	sprites->height = height;
 }
 
-static void	*get_sprite_for_entity(char entity, t_game_state *state)
+static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 {
-	int	index;
+	int	i;
+	int	img_size;
 
-	if (entity == SL_WALL)
-		index = state->textures.north_wall.index;
-	return (NULL);
+	i = -1;
+	img_size = tile->img_data.width * tile->img_data.height;
+	while (++i < img_size)
+		((int *)tile->img_data.img)[i] = ((int *)sprite->img)[
+			i + (tile->index * 32)
+		];
 }
 
 void	init_map(t_game_state *state)
@@ -41,13 +62,13 @@ void	init_map(t_game_state *state)
 	state->textures.collectible.index = 29;
 	state->textures.exit.index = 23;
 	state->textures.floor.index = 7;
-	state->textures.north_wall.index = 1;
+	state->textures.wall.index = 1;
 	get_map_sprites(state);
-	map_data = &state->map.map_img_data;
-	state->map.img_ptr = mlx_new_image(state->mlx.mlx_ptr, 800, 600);
-	state->map.img = mlx_get_data_addr(state->map.img_ptr,
-			&map_data->bits_per_pixel, &map_data->line_size, &map_data->endian);
-	get_sprite_for_entity('#', state);
+	map_data = &state->map.img_data;
+	get_mlx_image(state, &state->textures.floor.img_data, 32, 32);
+	copy_sprite_to_img(&state->textures.floor, &state->map.sprites_data);
+	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
+		state->textures.floor.img_data.img_ptr, 32, 32);
 }
 
 int	draw_map(t_game_state *state)
@@ -59,7 +80,5 @@ int	draw_map(t_game_state *state)
 		already_initialized_map = 1;
 		init_map(state);
 	}
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->map.sprites_img_ptr, 0, 0);
 	return (0);
 }

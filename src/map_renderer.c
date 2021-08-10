@@ -44,31 +44,37 @@ static void	get_map_sprites(t_game_state *state)
 
 static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 {
-	int	i;
-	int	img_size;
+	int	x;
+	int	y;
 
-	i = -1;
-	img_size = tile->img_data.width * tile->img_data.height;
-	while (++i < img_size)
-		((int *)tile->img_data.img)[i] = ((int *)sprite->img)[
-			i + (tile->index * 32)
-		];
+	y = -1;
+	while (++y < tile->img_data.height)
+	{
+		x = -1;
+		while (++x < tile->img_data.width)
+		{
+			((int *)tile->img_data.img)[x + (y * tile->img_data.width)]
+				= ((int *)sprite->img)[
+				x + tile->img_data.width * (tile->index) + sprite->width * y
+			];
+		}
+	}
 }
 
 void	init_map(t_game_state *state)
 {
 	t_image_data	*map_data;
 
-	state->textures.collectible.index = 29;
+	state->textures.collectible.index = 8;
 	state->textures.exit.index = 23;
 	state->textures.floor.index = 7;
 	state->textures.wall.index = 1;
 	get_map_sprites(state);
 	map_data = &state->map.img_data;
-	get_mlx_image(state, &state->textures.floor.img_data, 32, 32);
-	copy_sprite_to_img(&state->textures.floor, &state->map.sprites_data);
+	get_mlx_image(state, &state->textures.collectible.img_data, 32, 32);
+	copy_sprite_to_img(&state->textures.collectible, &state->map.sprites_data);
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.floor.img_data.img_ptr, 32, 32);
+		state->textures.collectible.img_data.img_ptr, 100, 120);
 }
 
 int	draw_map(t_game_state *state)

@@ -44,12 +44,14 @@ static void	get_map_sprites(t_game_state *state)
 
 static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 {
-	int	x;
-	int	y;
-	int	down_factor;
-	int	right_factor;
+	int				x;
+	int				y;
+	int				down_factor;
+	int				right_factor;
+	unsigned int	color;
 
 	y = -1;
+	printf("bits per pixel: %d\n", tile->img_data.bits_per_pixel);
 	right_factor = tile->img_data.width * (tile->index % 6);
 	down_factor = sprite->width * 32 * (tile->index / 6);
 	while (++y < tile->img_data.height)
@@ -57,10 +59,9 @@ static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 		x = -1;
 		while (++x < tile->img_data.width)
 		{
-			((int *)tile->img_data.img)[x + (y * tile->img_data.width)]
-				= ((int *)sprite->img)[x + (right_factor)
-				+ (sprite->width * y + down_factor)
-			];
+			color = ((unsigned int *)sprite->img)[x + (right_factor)
+				+ (sprite->width * y + down_factor)] & 0xffffffff;
+			((unsigned int *)tile->img_data.img)[x + (y * tile->img_data.width)] = color;
 		}
 	}
 }
@@ -68,7 +69,9 @@ static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 void	init_map(t_game_state *state)
 {
 	t_tile			*tile;
+	void			*mlx_ptr;
 
+	mlx_ptr = state->mlx.mlx_ptr;
 	state->textures.collectible.index = 29;
 	state->textures.exit.index = 23;
 	state->textures.floor.index = 7;
@@ -97,13 +100,17 @@ int	draw_map(t_game_state *state)
 		already_initialized_map = 1;
 		init_map(state);
 	}
+	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window, state->map.sprites_data.img_ptr, 0, 0);
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.wall.img_data.img_ptr, 100, 120);
+		state->textures.wall.img_data.img_ptr, 100, 120 + 58);
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
 		state->textures.floor.img_data.img_ptr, 100, 120 + 32);
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.collectible.img_data.img_ptr, 100, 120 + 32);
+		state->textures.collectible.img_data.img_ptr, 100 + 10, 120 + 58);
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.exit.img_data.img_ptr, 100 + 32, 120 + 32);
+		state->textures.exit.img_data.img_ptr, 100 + 32, 220 + 32);
+	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
+		state->textures.exit.img_data.img_ptr, 112 + 32, 220 + 32);
+	mlx_do_sync(state->mlx.mlx_ptr);
 	return (0);
 }

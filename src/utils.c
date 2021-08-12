@@ -35,10 +35,8 @@ void	dump_info(t_game_state *game)
 void	print_map(t_game_state *gi)
 {
 	int	i;
-	int	map_size;
 
 	i = 0;
-	map_size = gi->map_height * gi->map_width;
 	while (i < gi->map_height)
 	{
 		write(1, &gi->map_mem[i * gi->map_width], gi->map_width);

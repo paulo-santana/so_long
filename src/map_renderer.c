@@ -13,7 +13,7 @@
 #include "so_long.h"
 #include <errno.h>
 
-static void	get_mlx_image(t_game_state *state,
+static void	generate_mlx_image(t_game_state *state,
 		t_image_data *data, int width, int height)
 {
 	data->img_ptr = mlx_new_image(state->mlx.mlx_ptr, width, height);

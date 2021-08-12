@@ -30,7 +30,7 @@
 
 # define TILE_SET "assets/PurpleDungeon/PurpleDungeonTilesWithFloor.xpm"
 
-typedef struct s_window			t_window;
+typedef struct s_mlx			t_mlx;
 typedef struct s_game_state		t_game_state;
 typedef enum e_directions		t_directions;
 typedef struct s_map_textures	t_map_texture;
@@ -38,7 +38,7 @@ typedef struct s_tile			t_tile;
 typedef struct s_map			t_map;
 typedef struct s_img_data		t_image_data;
 
-struct s_window {
+struct s_mlx {
 	void	*mlx_ptr;
 	void	*window;
 };
@@ -84,7 +84,7 @@ struct s_game_state {
 	size_t			movement_count;
 	size_t			collected_collectibles;
 	size_t			total_collectibles;
-	t_window		mlx;
+	t_mlx			mlx;
 	t_map_texture	textures;
 	t_map			map;
 };

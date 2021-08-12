@@ -25,7 +25,7 @@ void	clear(t_game_state *state)
 
 void	start_game(t_game_state *state)
 {
-	t_window	*mlx;
+	t_mlx	*mlx;
 
 	mlx = &state->mlx;
 	mlx->mlx_ptr = mlx_init();

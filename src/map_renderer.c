@@ -45,9 +45,7 @@ static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 void	init_map(t_game_state *state)
 {
 	t_tile			*tile;
-	void			*mlx_ptr;
 
-	mlx_ptr = state->mlx.mlx_ptr;
 	state->textures.collectible.index = 29;
 	state->textures.exit.index = 23;
 	state->textures.floor.index = 7;

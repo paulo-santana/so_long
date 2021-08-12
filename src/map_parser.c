@@ -94,9 +94,6 @@ void	parse_map(t_game_state *state)
 	state->map_mem = ft_calloc(map_size, 1);
 	if (state->map_mem == NULL)
 		quit_with_error(errno, state);
-	generate_map(state);
-	dump_info(state);
-	print_map(state);
 }
 
 void	get_map(t_game_state *state)
@@ -110,4 +107,7 @@ void	get_map(t_game_state *state)
 	validate_map(fd, state);
 	close(fd);
 	parse_map(state);
+	generate_map(state);
+	dump_info(state);
+	print_map(state);
 }

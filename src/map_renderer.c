@@ -78,39 +78,47 @@ void	init_map(t_game_state *state)
 	state->textures.wall.index = 1;
 	get_map_sprites(state);
 	tile = &state->textures.wall;
-	get_mlx_image(state, &tile->img_data, 32, 32);
+	generate_mlx_image(state, &tile->img_data, 32, 32);
 	copy_sprite_to_img(tile, &state->map.sprites_data);
 	tile = &state->textures.collectible;
-	get_mlx_image(state, &tile->img_data, 32, 32);
+	generate_mlx_image(state, &tile->img_data, 32, 32);
 	copy_sprite_to_img(tile, &state->map.sprites_data);
 	tile = &state->textures.floor;
-	get_mlx_image(state, &tile->img_data, 32, 32);
+	generate_mlx_image(state, &tile->img_data, 32, 32);
 	copy_sprite_to_img(tile, &state->map.sprites_data);
 	tile = &state->textures.exit;
-	get_mlx_image(state, &tile->img_data, 32, 32);
+	generate_mlx_image(state, &tile->img_data, 32, 32);
 	copy_sprite_to_img(tile, &state->map.sprites_data);
+}
+
+void	draw_tile(t_tile *tile, t_game_state *state, int x, int y)
+{
+	int	x_position;
+	int	y_position;
+
+	x_position = x * tile->img_data.width;
+	y_position = y * tile->img_data.height;
+	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
+		tile->img_data.img_ptr, x_position, y_position);
 }
 
 int	draw_map(t_game_state *state)
 {
 	static int	already_initialized_map;
+	int			i;
 
 	if (!already_initialized_map)
 	{
 		already_initialized_map = 1;
 		init_map(state);
 	}
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window, state->map.sprites_data.img_ptr, 0, 0);
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.wall.img_data.img_ptr, 100, 120 + 58);
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.floor.img_data.img_ptr, 100, 120 + 32);
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.collectible.img_data.img_ptr, 100 + 10, 120 + 58);
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.exit.img_data.img_ptr, 100 + 32, 220 + 32);
-	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->textures.exit.img_data.img_ptr, 112 + 32, 220 + 32);
-	mlx_do_sync(state->mlx.mlx_ptr);
+	i = 0;
+	while (i < 20)
+		draw_tile(&state->textures.wall, state, i++, 0);
+	i = 0;
+	draw_tile(&state->textures.floor, state, 1, i++);
+	draw_tile(&state->textures.collectible, state, 4, i++);
+	draw_tile(&state->textures.exit, state, 2, i++);
+	draw_tile(&state->textures.exit, state, 3, i++);
 	return (0);
 }

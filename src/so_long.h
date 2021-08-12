@@ -28,7 +28,7 @@
 # define SL_COLLECTIBLE 'C'
 # define SL_PLAYER 'P'
 
-# define TILE_SET "assets/PurpleDungeon/PurpleDungeonTilesWithFloor.xpm"
+# define TILE_SET "assets/PurpleDungeon/g8506.xpm"
 
 typedef struct s_mlx			t_mlx;
 typedef struct s_game_state		t_game_state;

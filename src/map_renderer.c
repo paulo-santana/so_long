@@ -51,7 +51,6 @@ static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 	unsigned int	color;
 
 	y = -1;
-	printf("bits per pixel: %d\n", tile->img_data.bits_per_pixel);
 	right_factor = tile->img_data.width * (tile->index % 6);
 	down_factor = sprite->width * 32 * (tile->index / 6);
 	while (++y < tile->img_data.height)
@@ -60,8 +59,9 @@ static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
 		while (++x < tile->img_data.width)
 		{
 			color = ((unsigned int *)sprite->img)[x + (right_factor)
-				+ (sprite->width * y + down_factor)] & 0xffffffff;
-			((unsigned int *)tile->img_data.img)[x + (y * tile->img_data.width)] = color;
+				+ (sprite->width * y + down_factor)];
+			((unsigned int *)tile->img_data.img)[x + (y * tile->img_data.width)]
+				= color;
 		}
 	}
 }

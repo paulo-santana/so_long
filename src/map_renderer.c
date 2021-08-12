@@ -13,33 +13,9 @@
 #include "so_long.h"
 #include <errno.h>
 
-static void	generate_mlx_image(t_game_state *state,
-		t_image_data *data, int width, int height)
-{
-	data->img_ptr = mlx_new_image(state->mlx.mlx_ptr, width, height);
-	if (data->img_ptr == NULL)
-		quit_with_error(errno, state);
-	data->img = mlx_get_data_addr(data->img_ptr, &data->bits_per_pixel,
-			&data->line_size, &data->endian);
-	if (data->img == NULL)
-		quit_with_error(errno, state);
-	data->width = width;
-	data->height = height;
-}
-
 static void	get_map_sprites(t_game_state *state)
 {
-	int				width;
-	int				height;
-	t_image_data	*sprites;
-
-	sprites = &state->map.sprites_data;
-	sprites->img_ptr = mlx_xpm_file_to_image(
-			state->mlx.mlx_ptr, TILE_SET, &width, &height);
-	sprites->img = mlx_get_data_addr(sprites->img_ptr, &sprites->bits_per_pixel,
-			&sprites->line_size, &sprites->endian);
-	sprites->width = width;
-	sprites->height = height;
+	read_sprite(state, &state->map.sprites_data, TILE_SET);
 }
 
 static void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)

@@ -76,8 +76,6 @@ struct s_game_state {
 	char			*program_name;
 	char			*map_filename;
 	int				map_fd;
-	int				map_width;
-	int				map_height;
 	t_list			*map_rows;
 	char			*map_mem;
 	size_t			player_pos;
@@ -115,5 +113,14 @@ int				destroy_handler(void);
 int				handle_expose(t_game_state *state);
 void			move(t_directions direction, t_game_state *state);
 void			finish(void);
+
+// mlx helpers
+/**
+ * Reads a sprite file and store its data insinde the `*image` struct.
+ */
+void			read_sprite(t_game_state *state, t_image_data *image,
+					char *filename);
+void			generate_mlx_image(t_game_state *state,
+					t_image_data *data, int width, int height);
 
 #endif

@@ -33,8 +33,8 @@ static void	parse_first_line(char *line, t_game_state *state)
 	ft_lstadd_back(&(state->map_rows), ft_lstnew(line_ptr));
 	if (map_width == -1)
 		quit_with_error(ERR_INVALID_MAP, state);
-	state->map_height++;
-	state->map_width = map_width;
+	state->map.height++;
+	state->map.width = map_width;
 }
 
 static int	parse_line(char *line, t_game_state *state)
@@ -45,7 +45,7 @@ static int	parse_line(char *line, t_game_state *state)
 	if (*line != '1')
 		return (-1);
 	line_len = ft_strlen(line);
-	if (line_len != state->map_width)
+	if (line_len != state->map.width)
 		return (-2);
 	if (line[line_len - 1] != '1')
 		return (-3);
@@ -54,7 +54,7 @@ static int	parse_line(char *line, t_game_state *state)
 		if (ft_strchr("01PEC", line[i++]) == NULL)
 			return (-4);
 	ft_lstadd_back(&(state->map_rows), ft_lstnew(line));
-	state->map_height++;
+	state->map.height++;
 	return (1);
 }
 
@@ -67,7 +67,7 @@ void	validate_map(int fd, t_game_state *state)
 	if (result == -1)
 		quit_with_error(errno, state);
 	parse_first_line(line, state);
-	if (state->map_width == -1)
+	if (state->map.width == -1)
 		quit_with_error(ERR_INVALID_MAP, state);
 	while (1)
 	{
@@ -90,7 +90,7 @@ void	parse_map(t_game_state *state)
 {
 	int	map_size;
 
-	map_size = state->map_width * state->map_height;
+	map_size = state->map.width * state->map.height;
 	state->map_mem = ft_calloc(map_size, 1);
 	if (state->map_mem == NULL)
 		quit_with_error(errno, state);

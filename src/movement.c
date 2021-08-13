@@ -22,9 +22,9 @@ size_t	get_intended_position(t_directions direction, t_game_state *state)
 	player_position = state->player_pos;
 	intended_position = player_position;
 	if (direction == DIRECTION_UP)
-		intended_position = player_position - state->map_width;
+		intended_position = player_position - state->map.width;
 	else if (direction == DIRECTION_DOWN)
-		intended_position = player_position + state->map_width;
+		intended_position = player_position + state->map.width;
 	else if (direction == DIRECTION_LEFT)
 		intended_position = player_position - 1;
 	else if (direction == DIRECTION_RIGHT)

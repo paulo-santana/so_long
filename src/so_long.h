@@ -29,6 +29,8 @@
 # define SL_PLAYER 'P'
 
 # define TILE_SET "assets/PurpleDungeon/g8506.xpm"
+# define SPRITE_TILE_SIZE 32
+# define MAP_TILE_SIZE 32
 
 typedef struct s_mlx			t_mlx;
 typedef struct s_game_state		t_game_state;
@@ -46,6 +48,7 @@ struct s_mlx {
 struct s_img_data {
 	char	*img;
 	void	*img_ptr;
+	int		mem_width;
 	int		width;
 	int		height;
 	int		bits_per_pixel;

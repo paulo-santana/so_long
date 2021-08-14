@@ -8,10 +8,17 @@
 			"cwd": "/home/paulo/docs/42/projects/so_long",
 			"program": "/home/paulo/docs/42/projects/so_long/a.out",
 			"args": [
+				"files/simple.ber"
+			]
+		},
+		{
+			"name": "Complex map",
+			"type": "lldb",
+			"request": "launch",
+			"cwd": "/home/paulo/docs/42/projects/so_long",
+			"program": "/home/paulo/docs/42/projects/so_long/a.out",
+			"args": [
 				"files/multiple_collectibles.ber"
-			],
-			"preRunCommands": [
-				"make"
 			]
 		}
 	]

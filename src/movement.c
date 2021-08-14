@@ -44,14 +44,14 @@ void	move_to(size_t intended_position, t_game_state *state)
 {
 	if (intended_position == state->player_pos)
 		return ;
-	if (state->map_mem[intended_position] == SL_WALL)
+	if (state->map_mem[intended_position] == ENTITY_WALL)
 		return ;
-	if (state->map_mem[intended_position] == SL_EXIT)
+	if (state->map_mem[intended_position] == ENTITY_EXIT)
 		return (handle_exit(state));
-	if (state->map_mem[intended_position] == SL_COLLECTIBLE)
+	if (state->map_mem[intended_position] == ENTITY_COLLECTIBLE)
 		state->collected_collectibles++;
-	state->map_mem[intended_position] = SL_PLAYER;
-	state->map_mem[state->player_pos] = SL_WATER;
+	state->map_mem[intended_position] = ENTITY_PLAYER;
+	state->map_mem[state->player_pos] = ENTITY_FLOOR;
 	state->player_pos = intended_position;
 	state->movement_count++;
 }
@@ -62,4 +62,5 @@ void	move(t_directions direction, t_game_state *state)
 
 	intended_position = get_intended_position(direction, state);
 	move_to(intended_position, state);
+	draw_map(state);
 }

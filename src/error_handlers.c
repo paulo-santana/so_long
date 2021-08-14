@@ -18,6 +18,9 @@ static char	*get_error_message(int err)
 
 	messages[ERR_INVALID_MAP] = "Invalid map.";
 	messages[ERR_MULTIPLAYER] = "Multiplayer is not implemented yet.";
+	messages[ERR_NO_PLAYER] = "Where is the player?";
+	messages[ERR_NO_EXIT] = "Map without exit.";
+	messages[ERR_NO_COLLECT] = "Map without collectibles.";
 	return (messages[err]);
 }
 
@@ -31,12 +34,19 @@ static void	print_error(char *message)
 void	quit_with_error(int my_errno, t_game_state *state)
 {
 	char	*errmsg;
+	int		exit_code;
 
 	if (errno == 0)
+	{
 		errmsg = get_error_message(my_errno);
+		exit_code = my_errno + 1;
+	}
 	else
+	{
+		exit_code = errno;
 		errmsg = strerror(errno);
+	}
 	print_error(errmsg);
 	clear(state);
-	exit(my_errno);
+	exit(exit_code);
 }

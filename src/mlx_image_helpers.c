@@ -15,9 +15,6 @@
 void	generate_mlx_image(t_game_state *state,
 		t_image_data *data, int width, int height)
 {
-	int	i;
-	int	j;
-
 	data->img_ptr = mlx_new_image(state->mlx.mlx_ptr, width, height);
 	if (data->img_ptr == NULL)
 		quit_with_error(errno, state);
@@ -28,11 +25,4 @@ void	generate_mlx_image(t_game_state *state,
 	data->width = width;
 	data->height = height;
 	data->mem_width = data->line_size / (data->bits_per_pixel / 8);
-	i = -1;
-	while (++i < data->height)
-	{
-		j = -1;
-		while (++j < data->width)
-			((int *)data->img)[i * data->width + j] = (0x00ff00);
-	}
 }

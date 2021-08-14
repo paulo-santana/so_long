@@ -33,3 +33,32 @@ void	read_sprite(t_game_state *state, t_image_data *image, char *filename)
 	image->height = height;
 	image->mem_width = image->line_size / (image->bits_per_pixel / 8);
 }
+
+static inline int	ft_round(double x)
+{
+	return ((int)(x + 0.5));
+}
+
+void	copy_sprite_to_img(t_tile *tile, t_image_data *sprite)
+{
+	int		x;
+	int		y;
+	int		down_factor;
+	int		right_factor;
+	double	scale;
+
+	y = -1;
+	right_factor = SPRITE_TILE_SIZE * (tile->index % 6);
+	down_factor = sprite->mem_width * SPRITE_TILE_SIZE * (tile->index / 6);
+	scale = (double)SPRITE_TILE_SIZE / MAP_TILE_SIZE;
+	while (++y < tile->img_data.height)
+	{
+		x = -1;
+		while (++x < tile->img_data.mem_width)
+		{
+			((int *) tile->img_data.img)[x + (y * tile->img_data.mem_width)]
+				= ((int *)sprite->img)[ft_round(x * scale) + (right_factor)
+				+ (sprite->width * ft_round(y * scale) + down_factor)];
+		}
+	}
+}

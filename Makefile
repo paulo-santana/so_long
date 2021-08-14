@@ -6,7 +6,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
-VALGRIND = valgrind --leak-check=full -q
+VALGRIND = #valgrind --leak-check=full -q
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -28,7 +28,8 @@ SRC_FILES = main.c					\
 			mlx_sprite_helpers.c	\
 			mlx_image_helpers.c		\
 			map_renderer.c 			\
-			map_generator.c
+			map_generator.c			\
+			wall_helpers.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -40,7 +41,7 @@ LIBFLAGS = -lft -lXext -lX11 -lmlx
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC) $(UTILS) $(OBJ) -o $(NAME) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS)
+	$(CC) $(UTILS) $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
 	cp $(NAME) a.out #for debugging
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
@@ -54,7 +55,12 @@ $(MLX):
 	make -C $(MLX_DIR)
 
 run: all
-	$(VALGRIND) ./$(NAME) files/multiple_collectibles.ber
+	$(VALGRIND) ./$(NAME) files/bad_map.ber || \
+	$(VALGRIND) ./$(NAME) files/no_player.ber || \
+	$(VALGRIND) ./$(NAME) files/no_exit.ber || \
+	$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
+	$(VALGRIND) ./$(NAME) files/not_rectangular.ber || \
+	$(VALGRIND) ./$(NAME) files/simple.ber
 
 clean:
 	$(RM) $(OBJ)

@@ -29,6 +29,8 @@ void	get_map_entity(t_game_state *state, int i, char entity)
 	}
 	else if (state->map_mem[i] == 'C')
 		state->total_collectibles++;
+	else if (state->map_mem[i] == 'E')
+		state->exits++;
 }
 
 void	generate_map(t_game_state *state)
@@ -47,4 +49,10 @@ void	generate_map(t_game_state *state)
 			get_map_entity(state, i++, *row++);
 		lst = lst->next;
 	}
+	if (state->player_pos == 0)
+		quit_with_error(ERR_NO_PLAYER, state);
+	if (state->exits == 0)
+		quit_with_error(ERR_NO_EXIT, state);
+	if (state->total_collectibles == 0)
+		quit_with_error(ERR_NO_COLLECT, state);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "utils.h"
 
 static void	parse_first_line(char *line, t_game_state *state)
 {
@@ -108,6 +107,4 @@ void	get_map(t_game_state *state)
 	close(fd);
 	parse_map(state);
 	generate_map(state);
-	dump_info(state);
-	print_map(state);
 }

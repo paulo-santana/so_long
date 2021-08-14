@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "utils.h"
 
 void	finish(void)
 {
@@ -33,8 +32,6 @@ int	key_handler(int keycode, void *param)
 		move(DIRECTION_DOWN, state);
 	else if (keycode == 'd')
 		move(DIRECTION_RIGHT, state);
-	dump_info(state);
-	print_map(state);
 	draw_map(state);
 	return (0);
 }

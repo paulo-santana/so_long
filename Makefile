@@ -11,10 +11,7 @@ VALGRIND = #valgrind --leak-check=full -q
 SRC_DIR = src
 OBJ_DIR = obj
 
-UTILS = src/utils.c
-
-HEADERS = src/so_long.h \
-		  src/utils.h
+HEADERS = src/so_long.h
 
 INCLUDE_DIR = includes
 
@@ -41,7 +38,7 @@ LIBFLAGS = -lft -lXext -lX11 -lmlx
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC) $(UTILS) $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
+	$(CC)  $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
 	cp $(NAME) a.out #for debugging
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)

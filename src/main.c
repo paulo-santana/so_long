@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "utils.h"
 
 void	clear(t_game_state *state)
 {

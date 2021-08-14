@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "utils.h"
-#include <stddef.h>
 
 size_t	get_intended_position(t_directions direction, t_game_state *state)
 {

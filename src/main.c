@@ -31,7 +31,8 @@ void	start_game(t_game_state *state)
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		quit_with_error(errno, state);
-	mlx->window = mlx_new_window(mlx->mlx_ptr, 800, 600,
+	mlx->window = mlx_new_window(mlx->mlx_ptr, state->map.width * MAP_TILE_SIZE,
+			state->map.height * MAP_TILE_SIZE,
 			state->program_name);
 	if (mlx->window == NULL)
 		quit_with_error(errno, state);

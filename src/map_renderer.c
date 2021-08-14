@@ -91,45 +91,8 @@ inline void	put_tile(t_tile *tile, t_game_state *state, int x, int y)
 	}
 }
 
-t_tile	*select_tile(t_game_state *state, int x, int y, t_map_textures *textures)
+void	render_map(t_game_state *state)
 {
-	char	*map_mem;
-	int		position;
-
-	map_mem = state->map_mem;
-	position = y * state->map.width + x;
-	if (map_mem[position] == ENTITY_WALL)
-		place_wall(state, x, y);
-	else
-		put_tile(&textures->floor, state, x, y);
-	if (map_mem[position] == ENTITY_COLLECTIBLE)
-		put_tile(&textures->collectible, state, x, y);
-	else if (map_mem[position] == ENTITY_PLAYER)
-		put_tile(&textures->player, state, x, y);
-	else if (map_mem[position] == ENTITY_EXIT)
-		put_tile(&textures->exit, state, x, y);
-	return (&textures->floor);
-}
-
-int	draw_map(t_game_state *state)
-{
-	static int	already_initialized_map;
-	int			i;
-	int			j;
-
-	if (!already_initialized_map)
-	{
-		already_initialized_map = 1;
-		init_map(state);
-	}
-	i = -1;
-	while (++i < state->map.width)
-	{
-		j = -1;
-		while (++j < state->map.height)
-			select_tile(state, i, j, &state->textures);
-	}
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
 		state->map.img_data.img_ptr, 0, 0);
-	return (0);
 }

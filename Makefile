@@ -26,6 +26,7 @@ SRC_FILES = main.c					\
 			mlx_image_helpers.c		\
 			map_renderer.c 			\
 			map_generator.c			\
+			map_drawer.c			\
 			wall_helpers.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))

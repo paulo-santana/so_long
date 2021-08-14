@@ -34,7 +34,7 @@
 # define PLAYER_SET "assets/xpm/player.xpm"
 # define TILE_SET "assets/xpm/map.xpm"
 # define SPRITE_TILE_SIZE 32
-# define MAP_TILE_SIZE 48
+# define MAP_TILE_SIZE 128
 
 typedef struct s_mlx			t_mlx;
 typedef struct s_game_state		t_game_state;
@@ -163,5 +163,7 @@ void			copy_sprite_to_img(t_tile *tile, t_image_data *sprite);
 void			put_tile(t_tile *tile, t_game_state *state, int x, int y);
 void			place_wall(t_game_state *state, int x, int y);
 void			init_walls(t_game_state *state);
+void			render_map(t_game_state *state);
+void			init_map(t_game_state *state);
 
 #endif

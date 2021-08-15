@@ -27,15 +27,9 @@ void	init_map(t_game_state *state)
 	get_sprites(state);
 	generate_mlx_image(state, &state->map.img_data, state->map.width
 		* MAP_TILE_SIZE, state->map.height * MAP_TILE_SIZE);
-	tile = &state->textures.collectible0;
-	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
-	copy_sprite_to_img(tile, &state->map.sprites_data);
 	tile = &state->textures.floor;
 	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
 	copy_sprite_to_img(tile, &state->map.sprites_data);
-	tile = &state->textures.exit0;
-	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
-	copy_sprite_to_img(tile, &state->exit.sprites_data);
 	init_player(state);
 	init_exit(state);
 	init_collectibles(state);

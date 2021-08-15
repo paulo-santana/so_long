@@ -6,7 +6,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
-VALGRIND = #valgrind --leak-check=full -q
+VALGRIND = valgrind --leak-check=full -q
 
 SRC_DIR = src
 OBJ_DIR = obj

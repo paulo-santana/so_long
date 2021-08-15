@@ -22,7 +22,7 @@ int	key_handler(int keycode, void *param)
 	t_game_state	*state;
 
 	state = param;
-	if (keycode == XK_Escape)
+	if (keycode == XK_Escape || keycode == 'q')
 		finish();
 	if (keycode == 'w')
 		move(DIRECTION_UP, state);

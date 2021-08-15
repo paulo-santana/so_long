@@ -34,24 +34,29 @@ void	handle_exit(t_game_state *state)
 {
 	if (state->collected_collectibles < state->total_collectibles)
 		return ;
+	state->game_finished = 1;
+	state->movement_count++;
+	print_movements(state);
 	printf("Congratula...tulations!\n");
-	finish();
 }
 
 void	move_to(size_t intended_position, t_game_state *state)
 {
+	if (state->game_finished)
+		return ;
 	if (intended_position == state->player_pos)
 		return ;
 	if (state->map_mem[intended_position] == ENTITY_WALL)
 		return ;
-	if (state->map_mem[intended_position] == ENTITY_EXIT)
-		return (handle_exit(state));
 	if (state->map_mem[intended_position] == ENTITY_COLLECTIBLE)
 		state->collected_collectibles++;
+	if (state->map_mem[intended_position] == ENTITY_EXIT)
+		return (handle_exit(state));
 	state->map_mem[intended_position] = ENTITY_PLAYER;
 	state->map_mem[state->player_pos] = ENTITY_FLOOR;
 	state->player_pos = intended_position;
 	state->movement_count++;
+	print_movements(state);
 }
 
 void	move(t_directions direction, t_game_state *state)
@@ -60,5 +65,4 @@ void	move(t_directions direction, t_game_state *state)
 
 	intended_position = get_intended_position(direction, state);
 	move_to(intended_position, state);
-	draw_map(state);
 }

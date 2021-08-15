@@ -113,6 +113,7 @@ struct s_game_state {
 	struct s_exit	exit;
 	t_map			map;
 	t_player		player;
+	int				game_finished;
 };
 
 # define ERR_SIZE 5
@@ -165,5 +166,6 @@ void			place_wall(t_game_state *state, int x, int y);
 void			init_walls(t_game_state *state);
 void			render_map(t_game_state *state);
 void			init_map(t_game_state *state);
+void			print_movements(t_game_state *state);
 
 #endif

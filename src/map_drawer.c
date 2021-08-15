@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static t_tile	*select_tile(t_game_state *state, int x, int y,
+static inline t_tile	*select_tile(t_game_state *state, int x, int y,
 		t_map_textures *textures)
 {
 	char	*map_mem;
@@ -26,7 +26,7 @@ static t_tile	*select_tile(t_game_state *state, int x, int y,
 		put_tile(&textures->floor, state, x, y);
 	if (map_mem[position] == ENTITY_COLLECTIBLE)
 		put_tile(&textures->collectible, state, x, y);
-	else if (map_mem[position] == ENTITY_PLAYER)
+	else if (!state->game_finished && map_mem[position] == ENTITY_PLAYER)
 		put_tile(&textures->player, state, x, y);
 	else if (map_mem[position] == ENTITY_EXIT)
 		put_tile(&textures->exit, state, x, y);

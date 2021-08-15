@@ -28,6 +28,7 @@ SRC_FILES = main.c					\
 			map_renderer.c 			\
 			map_generator.c			\
 			map_drawer.c			\
+			output.c				\
 			wall_helpers.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -77,13 +78,13 @@ bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
 	cp $(NAME) a.out #for debugging
 
 
-run: bonus
+run: all
 	#$(VALGRIND) ./$(NAME) files/bad_map.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_player.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
 	#$(VALGRIND) ./$(NAME) files/not_rectangular.ber ||
-	$(VALGRIND) ./$(NAME) files/simple.ber
+	$(VALGRIND) ./$(NAME) files/multiple_collectibles.ber
 
 clean:
 	$(RM) $(OBJ)

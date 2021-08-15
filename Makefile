@@ -10,6 +10,7 @@ VALGRIND = valgrind --leak-check=full -q
 
 SRC_DIR = src
 OBJ_DIR = obj
+SRC_BONUS_DIR = src_bonus
 
 HEADERS = src/so_long.h
 
@@ -32,21 +33,23 @@ SRC_FILES = main.c					\
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-SRC_BONUS_FILES = main.c \
+SRC_BONUS_FILES = main_bonus.c		\
 			error_handlers.c		\
 			arg_validator.c			\
 			map_parser.c			\
 			arg_parser.c			\
-			event_handlers.c		\
+			event_handlers_bonus.c	\
 			movement.c				\
 			mlx_sprite_helpers.c	\
 			mlx_image_helpers.c		\
-			map_renderer.c 			\
+			map_renderer_bonus.c 	\
 			map_generator.c			\
-			map_drawer.c			\
-			wall_helpers.c
+			map_drawer_bonus.c		\
+			wall_helpers.c			\
+			animation_bonus.c		\
+			player_sprite_helpers.c
 
-SRC_BONUS = $(addprefix $(SRC_DIR)/, $(SRC_BONUS_FILES))
+SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
 OBJ_BONUS = $(SRC_BONUS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CFLAGS = -g3 -Wall -Werror -Wextra
@@ -71,14 +74,15 @@ $(MLX):
 
 bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
 	$(CC) $(OBJ_BONUS) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
+	cp $(NAME) a.out #for debugging
 
 
-run: all
-	$(VALGRIND) ./$(NAME) files/bad_map.ber || \
-	$(VALGRIND) ./$(NAME) files/no_player.ber || \
-	$(VALGRIND) ./$(NAME) files/no_exit.ber || \
-	$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
-	$(VALGRIND) ./$(NAME) files/not_rectangular.ber || \
+run: bonus
+	#$(VALGRIND) ./$(NAME) files/bad_map.ber || \
+	#$(VALGRIND) ./$(NAME) files/no_player.ber || \
+	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
+	#$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
+	#$(VALGRIND) ./$(NAME) files/not_rectangular.ber ||
 	$(VALGRIND) ./$(NAME) files/simple.ber
 
 clean:

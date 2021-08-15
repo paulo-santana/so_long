@@ -25,11 +25,11 @@ static inline t_tile	*select_tile(t_game_state *state, int x, int y,
 	else
 		put_tile(&textures->floor, state, x, y);
 	if (map_mem[position] == ENTITY_COLLECTIBLE)
-		put_tile(&textures->collectible, state, x, y);
+		put_tile(textures->collectible_current, state, x, y);
 	else if (!state->game_finished && map_mem[position] == ENTITY_PLAYER)
 		put_tile(textures->player_current, state, x, y);
 	else if (map_mem[position] == ENTITY_EXIT)
-		put_tile(&textures->exit, state, x, y);
+		put_tile(textures->exit_current, state, x, y);
 	return (&textures->floor);
 }
 

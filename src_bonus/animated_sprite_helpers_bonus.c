@@ -34,3 +34,45 @@ void	init_player(t_game_state *state)
 	copy_sprite_to_img(tile, &state->player.sprites_data);
 	state->textures.player_current = &state->textures.player0;
 }
+
+void	init_collectibles(t_game_state *state)
+{
+	t_tile	*tile;
+
+	state->textures.collectible0.index = 29;
+	state->textures.collectible1.index = 34;
+	state->textures.collectible2.index = 35;
+	tile = &state->textures.collectible0;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->map.sprites_data);
+	tile = &state->textures.collectible1;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->map.sprites_data);
+	tile = &state->textures.collectible2;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->map.sprites_data);
+	state->textures.collectible_current = &state->textures.collectible0;
+}
+
+void	init_exit(t_game_state *state)
+{
+	t_tile	*tile;
+
+	state->textures.exit0.index = 0;
+	state->textures.exit1.index = 1;
+	state->textures.exit2.index = 2;
+	state->textures.exit3.index = 3;
+	tile = &state->textures.exit0;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->exit.sprites_data);
+	tile = &state->textures.exit1;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->exit.sprites_data);
+	tile = &state->textures.exit2;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->exit.sprites_data);
+	tile = &state->textures.exit3;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->exit.sprites_data);
+	state->textures.exit_current = &state->textures.exit0;
+}

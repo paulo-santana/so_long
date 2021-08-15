@@ -83,13 +83,20 @@ struct s_map_textures {
 	t_tile	wall_tr_corner;
 	t_tile	wall_bl_corner;
 	t_tile	wall_br_corner;
-	t_tile	collectible;
-	t_tile	exit;
 	t_tile	*player_current;
+	t_tile	*collectible_current;
+	t_tile	*exit_current;
 	t_tile	player0;
 	t_tile	player1;
 	t_tile	player2;
 	t_tile	player3;
+	t_tile	collectible0;
+	t_tile	collectible1;
+	t_tile	collectible2;
+	t_tile	exit0;
+	t_tile	exit1;
+	t_tile	exit2;
+	t_tile	exit3;
 };
 
 struct s_map {
@@ -180,6 +187,8 @@ void			init_map(t_game_state *state);
 int				loop_handler(t_game_state *state);
 void			change_sprite_frames(t_game_state *state);
 void			init_player(t_game_state *state);
+void			init_exit(t_game_state *state);
+void			init_collectibles(t_game_state *state);
 void			print_movements(t_game_state *state);
 void			prepare_next_frame(t_game_state *state);
 

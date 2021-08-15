@@ -6,7 +6,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
-VALGRIND = valgrind --leak-check=full -q
+VALGRIND = #valgrind --leak-check=full -q
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -50,7 +50,7 @@ SRC_BONUS_FILES = main_bonus.c				\
 			wall_helpers_bonus.c			\
 			output_bonus.c					\
 			animated_sprites_bonus.c		\
-			player_sprite_helpers_bonus.c
+			animated_sprite_helpers_bonus.c
 
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
 OBJ_BONUS = $(SRC_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_DIR)/%.o)

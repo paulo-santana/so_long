@@ -41,7 +41,7 @@ int	loop_handler(t_game_state *state)
 	static int	tick;
 
 	(void)state;
-	if (tick++ < 2000)
+	if (tick++ < 2500)
 		return (0);
 	tick = 0;
 	prepare_next_frame(state);

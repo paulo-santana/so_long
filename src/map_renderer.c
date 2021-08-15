@@ -21,7 +21,7 @@ static void	get_sprites(t_game_state *state)
 
 void	init_map(t_game_state *state)
 {
-	t_tile			*tile;
+	t_tile	*tile;
 
 	state->textures.collectible.index = 29;
 	state->textures.floor.index = 7;

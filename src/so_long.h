@@ -34,7 +34,7 @@
 # define PLAYER_SET "assets/xpm/player.xpm"
 # define TILE_SET "assets/xpm/map.xpm"
 # define SPRITE_TILE_SIZE 32
-# define MAP_TILE_SIZE 128
+# define MAP_TILE_SIZE 48
 
 typedef struct s_mlx			t_mlx;
 typedef struct s_game_state		t_game_state;

@@ -32,4 +32,5 @@ void	init_player(t_game_state *state)
 	tile = &state->textures.player3;
 	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
 	copy_sprite_to_img(tile, &state->player.sprites_data);
+	state->textures.player_current = &state->textures.player0;
 }

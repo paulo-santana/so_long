@@ -36,6 +36,19 @@ int	key_handler(int keycode, void *param)
 	return (0);
 }
 
+int	loop_handler(t_game_state *state)
+{
+	static int	tick;
+
+	(void)state;
+	if (tick++ < 2000)
+		return (0);
+	tick = 0;
+	prepare_next_frame(state);
+	draw_map(state);
+	return (0);
+}
+
 int	destroy_handler(void)
 {
 	finish();

@@ -49,6 +49,7 @@ SRC_BONUS_FILES = main_bonus.c				\
 			map_drawer_bonus.c				\
 			wall_helpers_bonus.c			\
 			output_bonus.c					\
+			animated_sprites_bonus.c		\
 			player_sprite_helpers_bonus.c
 
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))

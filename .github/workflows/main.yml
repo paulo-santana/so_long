@@ -34,4 +34,4 @@ jobs:
           packages: norminette
           upgrade: true
       - name: Check
-        run: norminette src
+        run: norminette src src_bonus

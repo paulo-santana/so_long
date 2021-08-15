@@ -35,15 +35,9 @@ static t_tile	*select_tile(t_game_state *state, int x, int y,
 
 int	draw_map(t_game_state *state)
 {
-	static int	already_initialized_map;
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
-	if (!already_initialized_map)
-	{
-		already_initialized_map = 1;
-		init_map(state);
-	}
 	i = -1;
 	while (++i < state->map.width)
 	{

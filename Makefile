@@ -13,6 +13,7 @@ OBJ_DIR = obj
 SRC_BONUS_DIR = src_bonus
 
 HEADERS = src/so_long.h
+BONUS_HEADERS = src_bonus/so_long_bonus.h
 
 INCLUDE_DIR = includes
 
@@ -34,24 +35,24 @@ SRC_FILES = main.c					\
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-SRC_BONUS_FILES = main_bonus.c		\
-			error_handlers.c		\
-			arg_validator.c			\
-			map_parser.c			\
-			arg_parser.c			\
-			event_handlers_bonus.c	\
-			movement.c				\
-			mlx_sprite_helpers.c	\
-			mlx_image_helpers.c		\
-			map_renderer_bonus.c 	\
-			map_generator.c			\
-			map_drawer_bonus.c		\
-			wall_helpers.c			\
-			animation_bonus.c		\
-			player_sprite_helpers.c
+SRC_BONUS_FILES = main_bonus.c				\
+			error_handlers_bonus.c			\
+			arg_validator_bonus.c			\
+			map_parser_bonus.c				\
+			arg_parser_bonus.c				\
+			event_handlers_bonus.c			\
+			movement_bonus.c				\
+			mlx_sprite_helpers_bonus.c		\
+			mlx_image_helpers_bonus.c		\
+			map_renderer_bonus.c		 	\
+			map_generator_bonus.c			\
+			map_drawer_bonus.c				\
+			wall_helpers_bonus.c			\
+			output_bonus.c					\
+			player_sprite_helpers_bonus.c
 
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
-OBJ_BONUS = $(SRC_BONUS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ_BONUS = $(SRC_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CFLAGS = -g3 -Wall -Werror -Wextra
 CC = clang $(CFLAGS)
@@ -67,6 +68,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p obj
 	$(CC) -c -I$(INCLUDE_DIR) -o $@ $<
 
+$(OBJ_DIR)/%.o: $(SRC_BONUS_DIR)/%.c $(BONUS_HEADERS)
+	@mkdir -p obj
+	$(CC) -c -I$(INCLUDE_DIR) -o $@ $<
+
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
@@ -78,7 +83,7 @@ bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
 	cp $(NAME) a.out #for debugging
 
 
-run: all
+run: bonus
 	#$(VALGRIND) ./$(NAME) files/bad_map.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_player.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
@@ -88,6 +93,7 @@ run: all
 
 clean:
 	$(RM) $(OBJ)
+	$(RM) $(OBJ_BONUS)
 	$(RM) vgcore*
 
 fclean: clean

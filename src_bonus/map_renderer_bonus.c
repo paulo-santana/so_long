@@ -21,7 +21,7 @@ static void	get_sprites(t_game_state *state)
 
 void	init_map(t_game_state *state)
 {
-	t_tile			*tile;
+	t_tile	*tile;
 
 	state->textures.collectible.index = 29;
 	state->textures.floor.index = 7;
@@ -38,8 +38,8 @@ void	init_map(t_game_state *state)
 	tile = &state->textures.exit;
 	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
 	copy_sprite_to_img(tile, &state->exit.sprites_data);
-	init_walls(state);
 	init_player(state);
+	init_walls(state);
 }
 
 static inline void	put_alpha_pixel(int *dest, int src)

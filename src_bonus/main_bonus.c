@@ -30,7 +30,6 @@ void	subscribe_events(t_game_state *state)
 	mlx_key_hook(mlx->window, key_handler, state);
 	mlx_hook(mlx->window, DestroyNotify, NoEventMask, destroy_handler, state);
 	mlx_expose_hook(mlx->window, handle_expose, state);
-	mlx_loop_hook(mlx->mlx_ptr, loop_handler, state);
 }
 
 void	start_game(t_game_state *state)

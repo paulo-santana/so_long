@@ -123,6 +123,7 @@ struct s_game_state {
 	struct s_exit	exit;
 	t_map			map;
 	t_player		player;
+	int				game_finished;
 };
 
 # define ERR_SIZE 5
@@ -178,5 +179,6 @@ void			init_map(t_game_state *state);
 int				loop_handler(t_game_state *state);
 void			change_sprite_frames(t_game_state *state);
 void			init_player(t_game_state *state);
+void			print_movements(t_game_state *state);
 
 #endif

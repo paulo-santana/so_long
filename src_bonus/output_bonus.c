@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   animation_bonus.c                                  :+:      :+:    :+:   */
+/*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/15 14:05:11 by psergio-          #+#    #+#             */
-/*   Updated: 2021/08/15 14:05:11 by psergio-         ###   ########.fr       */
+/*   Created: 2021/08/15 18:17:14 by psergio-          #+#    #+#             */
+/*   Updated: 2021/08/15 18:17:14 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	change_sprite_frames(t_game_state *state)
+void	print_movements(t_game_state *state)
 {
-	state->player.img_data.images = state->player.img_data.images->next;
+	printf("Movements: %lu\n", state->movement_count);
 }

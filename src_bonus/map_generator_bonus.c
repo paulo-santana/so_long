@@ -20,7 +20,7 @@ void	get_map_entity(t_game_state *state, int i, char entity)
 		state->map_mem[i] = ENTITY_WALL;
 	else
 		state->map_mem[i] = entity;
-	if (state->map_mem[i] == 'P')
+	if (state->map_mem[i] == ENTITY_PLAYER)
 	{
 		if (state->player_pos == 0)
 			state->player_pos = i;

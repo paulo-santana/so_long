@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 16:49:08 by psergio-          #+#    #+#             */
-/*   Updated: 2021/08/08 16:49:08 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/08/25 15:33:32 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ void	start_game(t_game_state *state)
 	if (mlx->mlx_ptr == NULL)
 		quit_with_error(errno, state);
 	mlx->window = mlx_new_window(mlx->mlx_ptr, state->map.width * MAP_TILE_SIZE,
-			state->map.height * MAP_TILE_SIZE,
+			state->map.height * MAP_TILE_SIZE + TOP_OFFSET * 2,
 			state->program_name);
 	if (mlx->window == NULL)
 		quit_with_error(errno, state);
 	subscribe_events(state);
+	generate_mlx_image(state, &state->cleaner, state->map.width * TOP_OFFSET,
+		MAP_TILE_SIZE);
 	init_map(state);
 	mlx_loop(mlx->mlx_ptr);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->window);

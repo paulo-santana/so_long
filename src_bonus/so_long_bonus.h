@@ -23,6 +23,8 @@
 # include <X11/keysymdef.h>
 # include <X11/X.h>
 
+# define TOP_OFFSET 48
+
 # define ENTITY_WALL '#'
 # define ENTITY_EXIT 'E'
 # define ENTITY_FLOOR '~'
@@ -132,6 +134,7 @@ struct s_game_state {
 	t_map			map;
 	t_player		player;
 	int				game_finished;
+	t_image_data	cleaner;
 };
 
 # define ERR_SIZE 5

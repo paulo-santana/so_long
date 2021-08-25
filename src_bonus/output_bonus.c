@@ -14,5 +14,21 @@
 
 void	print_movements(t_game_state *state)
 {
-	printf("Movements: %lu\n", state->movement_count);
+	char	*str;
+	char	*moves;
+
+	str = ft_calloc(100, 1);
+	if (str == NULL)
+		quit_with_error(errno, state);
+	moves = ft_itoa(state->movement_count);
+	if (moves == NULL)
+		return (free(str));
+	ft_strlcpy(str, "Moves: ", 100);
+	ft_strlcat(str, moves, 100);
+	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
+		state->cleaner.img_ptr, 0, 0);
+	mlx_string_put(state->mlx.mlx_ptr, state->mlx.window, 15, 15, 0xff6700,
+		str);
+	free(str);
+	free(moves);
 }

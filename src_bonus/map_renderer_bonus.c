@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_renderer.c                                     :+:      :+:    :+:   */
+/*   map_renderer_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 11:34:52 by psergio-          #+#    #+#             */
-/*   Updated: 2021/08/09 11:54:26 by psergio-         ###   ########.fr       */
+/*   Created: 2021/08/15 21:08:57 by psergio-          #+#    #+#             */
+/*   Updated: 2021/08/15 21:08:57 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ inline void	put_tile(t_tile *tile, t_game_state *state, int x, int y)
 void	render_map(t_game_state *state)
 {
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.window,
-		state->map.img_data.img_ptr, 0, 0);
+		state->map.img_data.img_ptr, 0, 0 + TOP_OFFSET);
 }

@@ -30,6 +30,7 @@
 # define ENTITY_FLOOR '~'
 # define ENTITY_COLLECTIBLE 'C'
 # define ENTITY_PLAYER 'P'
+# define ENTITY_ENEMY 'X'
 
 # define EXIT_SET "assets/xpm/exit.xpm"
 # define ENEMY_SET "assets/xpm/slime.xpm"
@@ -47,6 +48,7 @@ typedef struct s_map				t_map;
 typedef struct s_player				t_player;
 typedef struct s_img_data			t_image_data;
 typedef struct s_animated_sprite	t_animated_sprite;
+typedef struct s_enemy				t_enemy;
 
 struct s_mlx {
 	void	*mlx_ptr;
@@ -117,6 +119,10 @@ struct s_exit {
 	t_image_data	sprites_data;
 };
 
+struct s_enemy {
+	t_image_data	sprites_data;
+};
+
 struct s_game_state {
 	char			*program_name;
 	char			*map_filename;
@@ -133,6 +139,8 @@ struct s_game_state {
 	struct s_exit	exit;
 	t_map			map;
 	t_player		player;
+	t_list			*enemy_lst;
+	size_t			total_enemies;
 	int				game_finished;
 	t_image_data	cleaner;
 };
@@ -194,5 +202,7 @@ void			init_exit(t_game_state *state);
 void			init_collectibles(t_game_state *state);
 void			print_movements(t_game_state *state);
 void			prepare_next_frame(t_game_state *state);
+void			move_enemies(t_game_state *state);
+void			handle_gameover(t_game_state *state);
 
 #endif

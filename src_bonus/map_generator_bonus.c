@@ -15,9 +15,9 @@
 void	get_map_entity(t_game_state *state, int i, char entity)
 {
 	if (entity == '0')
-		state->map_mem[i] = '~';
+		state->map_mem[i] = ENTITY_FLOOR;
 	else if (entity == '1')
-		state->map_mem[i] = '#';
+		state->map_mem[i] = ENTITY_WALL;
 	else
 		state->map_mem[i] = entity;
 	if (state->map_mem[i] == 'P')
@@ -27,10 +27,12 @@ void	get_map_entity(t_game_state *state, int i, char entity)
 		else
 			quit_with_error(ERR_MULTIPLAYER, state);
 	}
-	else if (state->map_mem[i] == 'C')
+	else if (state->map_mem[i] == ENTITY_COLLECTIBLE)
 		state->total_collectibles++;
-	else if (state->map_mem[i] == 'E')
+	else if (state->map_mem[i] == ENTITY_EXIT)
 		state->exits++;
+	else if (state->map_mem[i] == ENTITY_ENEMY)
+		state->total_enemies = 0;
 }
 
 void	generate_map(t_game_state *state)

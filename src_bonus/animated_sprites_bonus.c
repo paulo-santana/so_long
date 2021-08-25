@@ -72,6 +72,7 @@ void	prepare_next_frame(t_game_state *state)
 	animate_player(state, frame);
 	animate_collectible(state, frame);
 	animate_exit(state, frame);
+	move_enemies(state);
 	frame++;
 	if (frame > 3)
 		frame = 0;

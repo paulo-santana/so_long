@@ -50,6 +50,8 @@ void	move_to(size_t intended_position, t_game_state *state)
 		return ;
 	if (state->map_mem[intended_position] == ENTITY_COLLECTIBLE)
 		state->collected_collectibles++;
+	if (state->map_mem[intended_position] == ENTITY_ENEMY)
+		return (handle_gameover(state));
 	if (state->map_mem[intended_position] == ENTITY_EXIT)
 		return (handle_exit(state));
 	state->map_mem[intended_position] = ENTITY_PLAYER;

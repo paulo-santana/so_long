@@ -50,7 +50,8 @@ SRC_BONUS_FILES = main_bonus.c				\
 			wall_helpers_bonus.c			\
 			output_bonus.c					\
 			animated_sprites_bonus.c		\
-			animated_sprite_helpers_bonus.c
+			animated_sprite_helpers_bonus.c \
+			enemy_bonus.c
 
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
 OBJ_BONUS = $(SRC_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -90,7 +91,7 @@ run: bonus
 	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
 	#$(VALGRIND) ./$(NAME) files/not_rectangular.ber ||
-	$(VALGRIND) ./$(NAME) files/multiple_collectibles.ber
+	$(VALGRIND) ./$(NAME) files/simple_enemy.ber
 
 clean:
 	$(RM) $(OBJ)

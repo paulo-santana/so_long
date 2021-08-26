@@ -22,6 +22,18 @@ void	clear(t_game_state *state)
 	free(state);
 }
 
+void	get_random_seed(t_game_state *state)
+{
+	int	fd;
+
+	state->random_seed = 0xabcdeb;
+	fd = open("/dev/urandom", O_RDONLY);
+	if (fd == -1)
+		return ;
+	read(fd, &state->random_seed, sizeof(unsigned int));
+	close(fd);
+}
+
 void	subscribe_events(t_game_state *state)
 {
 	t_mlx	*mlx;
@@ -47,6 +59,7 @@ void	start_game(t_game_state *state)
 	if (mlx->window == NULL)
 		quit_with_error(errno, state);
 	subscribe_events(state);
+	get_random_seed(state);
 	generate_mlx_image(state, &state->cleaner, state->map.width * TOP_OFFSET,
 		MAP_TILE_SIZE);
 	init_map(state);

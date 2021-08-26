@@ -149,6 +149,7 @@ struct s_game_state {
 	size_t			total_enemies;
 	int				game_finished;
 	t_image_data	cleaner;
+	unsigned int	random_seed;
 };
 
 # define ERR_SIZE 5

@@ -90,6 +90,7 @@ struct s_map_textures {
 	t_tile	*player_current;
 	t_tile	*collectible_current;
 	t_tile	*exit_current;
+	t_tile	*enemy_current;
 	t_tile	player0;
 	t_tile	player1;
 	t_tile	player2;
@@ -101,6 +102,10 @@ struct s_map_textures {
 	t_tile	exit1;
 	t_tile	exit2;
 	t_tile	exit3;
+	t_tile	enemy0;
+	t_tile	enemy1;
+	t_tile	enemy2;
+	t_tile	enemy3;
 };
 
 struct s_map {
@@ -139,7 +144,8 @@ struct s_game_state {
 	struct s_exit	exit;
 	t_map			map;
 	t_player		player;
-	t_list			*enemy_lst;
+	t_enemy			enemies;
+	size_t			*enemy_positions;
 	size_t			total_enemies;
 	int				game_finished;
 	t_image_data	cleaner;
@@ -204,5 +210,6 @@ void			print_movements(t_game_state *state);
 void			prepare_next_frame(t_game_state *state);
 void			move_enemies(t_game_state *state);
 void			handle_gameover(t_game_state *state);
+void			init_enemies(t_game_state *state);
 
 #endif

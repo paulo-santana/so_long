@@ -17,6 +17,7 @@ static void	get_sprites(t_game_state *state)
 	read_sprite(state, &state->exit.sprites_data, EXIT_SET);
 	read_sprite(state, &state->map.sprites_data, TILE_SET);
 	read_sprite(state, &state->player.sprites_data, PLAYER_SET);
+	read_sprite(state, &state->enemies.sprites_data, ENEMY_SET);
 }
 
 void	init_map(t_game_state *state)
@@ -34,6 +35,7 @@ void	init_map(t_game_state *state)
 	init_exit(state);
 	init_collectibles(state);
 	init_walls(state);
+	init_enemies(state);
 }
 
 static inline void	put_alpha_pixel(int *dest, int src)

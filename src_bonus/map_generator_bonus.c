@@ -32,7 +32,27 @@ void	get_map_entity(t_game_state *state, int i, char entity)
 	else if (state->map_mem[i] == ENTITY_EXIT)
 		state->exits++;
 	else if (state->map_mem[i] == ENTITY_ENEMY)
-		state->total_enemies = 0;
+		state->total_enemies++;
+}
+
+void	fetch_enemies(t_game_state *state)
+{
+	char	*map_mem;
+	size_t	map_len;
+	size_t	map_index;
+	size_t	enemy_index;
+
+	enemy_index = 0;
+	map_index = 0;
+	map_mem = state->map_mem;
+	state->enemy_positions = malloc(sizeof(size_t));
+	map_len = state->map.width * state->map.height;
+	while (map_index < map_len)
+	{
+		if (map_mem[map_index] == ENTITY_ENEMY)
+			state->enemy_positions[enemy_index++] = map_index;
+		map_index++;
+	}
 }
 
 void	generate_map(t_game_state *state)
@@ -57,4 +77,5 @@ void	generate_map(t_game_state *state)
 		quit_with_error(ERR_NO_EXIT, state);
 	if (state->total_collectibles == 0)
 		quit_with_error(ERR_NO_COLLECT, state);
+	fetch_enemies(state);
 }

@@ -76,3 +76,26 @@ void	init_exit(t_game_state *state)
 	copy_sprite_to_img(tile, &state->exit.sprites_data);
 	state->textures.exit_current = &state->textures.exit0;
 }
+
+void	init_enemies(t_game_state *state)
+{
+	t_tile	*tile;
+
+	state->textures.enemy0.index = 0;
+	state->textures.enemy1.index = 1;
+	state->textures.enemy2.index = 2;
+	state->textures.enemy3.index = 3;
+	tile = &state->textures.enemy0;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->enemies.sprites_data);
+	tile = &state->textures.enemy1;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->enemies.sprites_data);
+	tile = &state->textures.enemy2;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->enemies.sprites_data);
+	tile = &state->textures.enemy3;
+	generate_mlx_image(state, &tile->img_data, MAP_TILE_SIZE, MAP_TILE_SIZE);
+	copy_sprite_to_img(tile, &state->enemies.sprites_data);
+	state->textures.enemy_current = &state->textures.enemy0;
+}

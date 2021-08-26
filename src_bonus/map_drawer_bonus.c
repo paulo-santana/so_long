@@ -30,6 +30,8 @@ static inline t_tile	*select_tile(t_game_state *state, int x, int y,
 		put_tile(textures->player_current, state, x, y);
 	else if (map_mem[position] == ENTITY_EXIT)
 		put_tile(textures->exit_current, state, x, y);
+	else if (map_mem[position] == ENTITY_ENEMY)
+		put_tile(textures->enemy_current, state, x, y);
 	return (&textures->floor);
 }
 

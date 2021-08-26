@@ -183,7 +183,7 @@ void			read_sprite(t_game_state *state, t_image_data *image,
 					char *filename);
 
 /**
- * Generates a mlx image and makes the pointer *state point to it
+ * Generates a mlx image and makes the pointer *data point to it
  */
 void			generate_mlx_image(t_game_state *state,
 					t_image_data *data, int width, int height);

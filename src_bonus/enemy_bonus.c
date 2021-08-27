@@ -12,7 +12,7 @@
 
 #include "so_long_bonus.h"
 
-static void	animate_enemies(t_game_state *state, int frame)
+void	animate_enemies(t_game_state *state, int frame)
 {
 	if (frame == 0)
 		state->textures.enemy_current = &state->textures.enemy0;
@@ -26,10 +26,18 @@ static void	animate_enemies(t_game_state *state, int frame)
 
 static size_t	get_intended_position(t_game_state *state, size_t position)
 {
-	int		*i;
+	int		i;
 	size_t	result;
 
-	i = malloc(1);
+	if (state->player_pos == position - state->map.width)
+		return (position - state->map.width);
+	else if (state->player_pos == position + state->map.width)
+		return (position + state->map.width);
+	else if (state->player_pos == position - 1)
+		return (position - 1);
+	else if (state->player_pos == position + 1)
+		return (position + 1);
+	i = get_random_int(state->random_seed);
 	result = (size_t) i % 4;
 	if (result == 0)
 		return (position - state->map.width);
@@ -39,16 +47,22 @@ static size_t	get_intended_position(t_game_state *state, size_t position)
 		return (position - 1);
 	else
 		return (position + 1);
-	free(i);
 }
 
-static void	think(t_game_state *state, size_t position)
+static size_t	think(t_game_state *state, size_t position)
 {
-	size_t	intended_position;
+	size_t		intended_position;
 
 	intended_position = get_intended_position(state, position);
-	printf("[enemy %d] i'm thinking of goint to %d>:)\n",
+	printf("[enemy %d] i'm thinking of going to %d >:)\n",
 		(int)position, (int)intended_position);
+	if (state->map_mem[intended_position] == ENTITY_WALL
+		|| state->map_mem[intended_position] == ENTITY_COLLECTIBLE
+		|| state->map_mem[intended_position] == ENTITY_EXIT
+		|| state->map_mem[intended_position] == ENTITY_ENEMY
+	)
+		return (position);
+	return (intended_position);
 }
 
 void	handle_gameover(t_game_state *state)
@@ -59,21 +73,23 @@ void	handle_gameover(t_game_state *state)
 
 void	move_enemies(t_game_state *state)
 {
-	static int	frame;
 	size_t		i;
 	size_t		*enemy_positions;
+	size_t		new_position;
 
-	frame++;
-	animate_enemies(state, frame);
-	if (frame > 3)
-		frame = 0;
-	i = 0;
-	enemy_positions = state->enemy_positions;
 	if (state->game_finished)
 		return ;
-	while (i < state->total_enemies)
+	i = -1;
+	enemy_positions = state->enemy_positions;
+	while (++i < state->total_enemies)
 	{
-		think(state, enemy_positions[i]);
-		i++;
+		new_position = think(state, enemy_positions[i]);
+		if (new_position == enemy_positions[i])
+			continue ;
+		state->map_mem[new_position] = ENTITY_ENEMY;
+		state->map_mem[enemy_positions[i]] = ENTITY_FLOOR;
+		enemy_positions[i] = new_position;
+		if (new_position == state->player_pos)
+			handle_gameover(state);
 	}
 }

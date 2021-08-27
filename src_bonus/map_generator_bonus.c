@@ -45,7 +45,7 @@ void	fetch_enemies(t_game_state *state)
 	enemy_index = 0;
 	map_index = 0;
 	map_mem = state->map_mem;
-	state->enemy_positions = malloc(sizeof(size_t));
+	state->enemy_positions = malloc(sizeof(size_t) * state->total_enemies);
 	map_len = state->map.width * state->map.height;
 	while (map_index < map_len)
 	{

@@ -68,12 +68,17 @@ void	animate_exit(t_game_state *state, int frame)
 void	prepare_next_frame(t_game_state *state)
 {
 	static int	frame;
+	static int	enemy_tick;
 
 	animate_player(state, frame);
 	animate_collectible(state, frame);
 	animate_exit(state, frame);
-	move_enemies(state);
-	frame++;
-	if (frame > 3)
+	animate_enemies(state, frame);
+	if (frame++ > 3)
 		frame = 0;
+	if (enemy_tick++ > 5)
+	{
+		move_enemies(state);
+		enemy_tick = 0;
+	}
 }

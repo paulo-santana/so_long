@@ -20,6 +20,17 @@
 			"args": [
 				"files/multiple_collectibles.ber"
 			]
+		},
+		{
+			"name": "Map with enemies",
+			"type": "lldb",
+			"request": "launch",
+			"cwd": "/home/paulo/docs/42/projects/so_long",
+			"program": "/home/paulo/docs/42/projects/so_long/a.out",
+			"args": [
+				"files/multipe_enemy.ber"
+			]
 		}
+
 	]
 }

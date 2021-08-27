@@ -23,7 +23,7 @@
 # include <X11/keysymdef.h>
 # include <X11/X.h>
 
-# define TOP_OFFSET 48
+# define TOP_OFFSET 56
 
 # define ENTITY_WALL '#'
 # define ENTITY_EXIT 'E'
@@ -37,7 +37,7 @@
 # define PLAYER_SET "assets/xpm/player.xpm"
 # define TILE_SET "assets/xpm/map.xpm"
 # define SPRITE_TILE_SIZE 32
-# define MAP_TILE_SIZE 48
+# define MAP_TILE_SIZE 56
 
 typedef struct s_mlx				t_mlx;
 typedef struct s_game_state			t_game_state;
@@ -212,5 +212,11 @@ void			prepare_next_frame(t_game_state *state);
 void			move_enemies(t_game_state *state);
 void			handle_gameover(t_game_state *state);
 void			init_enemies(t_game_state *state);
+
+unsigned int	get_random_seed(void);
+unsigned int	get_random_noise(int positionX, unsigned int seed);
+unsigned int	get_random_int(unsigned int seed);
+
+void			animate_enemies(t_game_state *state, int frame);
 
 #endif

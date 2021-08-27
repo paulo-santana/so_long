@@ -6,7 +6,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
-VALGRIND = #valgrind --leak-check=full -q
+VALGRIND = valgrind --leak-check=full -q
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -51,6 +51,7 @@ SRC_BONUS_FILES = main_bonus.c				\
 			output_bonus.c					\
 			animated_sprites_bonus.c		\
 			animated_sprite_helpers_bonus.c \
+			rng_bonus.c						\
 			enemy_bonus.c
 
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
@@ -91,7 +92,7 @@ run: bonus
 	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
 	#$(VALGRIND) ./$(NAME) files/not_rectangular.ber ||
-	$(VALGRIND) ./$(NAME) files/simple_enemy.ber
+	$(VALGRIND) ./$(NAME) files/multiple_enemies.ber
 
 clean:
 	$(RM) $(OBJ)

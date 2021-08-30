@@ -30,20 +30,20 @@ unsigned int	get_random_seed(void)
 
 unsigned int	get_random_noise(int positionX, unsigned int seed)
 {
-	const unsigned int	BIT_NOISE1 = 0x68e31da4;
-	const unsigned int	BIT_NOISE2 = 0xb5297a4d;
-	const unsigned int	BIT_NOISE3 = 0x1b56c4e9;
-	unsigned int		mangledBits;
+	const unsigned int	bit_noise1 = 0x68e31da4;
+	const unsigned int	bit_noise2 = 0xb5297a4d;
+	const unsigned int	bit_noise3 = 0x1b56c4e9;
+	unsigned int		mangled_bits;
 
-	mangledBits = (unsigned int)positionX;
-	mangledBits *= BIT_NOISE1;
-	mangledBits += seed;
-	mangledBits ^= (mangledBits >> 8);
-	mangledBits += (BIT_NOISE2);
-	mangledBits ^= (mangledBits << 8);
-	mangledBits *= (BIT_NOISE3);
-	mangledBits ^= (mangledBits >> 8);
-	return (mangledBits);
+	mangled_bits = (unsigned int)positionX;
+	mangled_bits *= bit_noise1;
+	mangled_bits += seed;
+	mangled_bits ^= (mangled_bits >> 8);
+	mangled_bits += (bit_noise2);
+	mangled_bits ^= (mangled_bits << 8);
+	mangled_bits *= (bit_noise3);
+	mangled_bits ^= (mangled_bits >> 8);
+	return (mangled_bits);
 }
 
 unsigned int	get_random_int(unsigned int seed)

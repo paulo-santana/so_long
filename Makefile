@@ -88,7 +88,7 @@ bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
 	cp $(NAME) a.out #for debugging
 
 
-run: all
+run: bonus
 	#$(VALGRIND) ./$(NAME) files/bad_map.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_player.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \

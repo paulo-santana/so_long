@@ -41,6 +41,7 @@ static int	parse_line(char *line, t_game_state *state)
 	int	line_len;
 	int	i;
 
+	ft_lstadd_back(&(state->map_rows), ft_lstnew(line));
 	if (*line != '1')
 		return (-1);
 	line_len = ft_strlen(line);
@@ -52,7 +53,6 @@ static int	parse_line(char *line, t_game_state *state)
 	while (i < line_len)
 		if (ft_strchr("01XPEC", line[i++]) == NULL)
 			return (-4);
-	ft_lstadd_back(&(state->map_rows), ft_lstnew(line));
 	state->map.height++;
 	return (1);
 }

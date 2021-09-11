@@ -41,6 +41,7 @@ static int	parse_line(char *line, t_game_state *state)
 	int	line_len;
 	int	i;
 
+	ft_lstadd_back(&(state->map_rows), ft_lstnew(line));
 	if (*line != '1')
 		return (-1);
 	line_len = ft_strlen(line);
@@ -52,12 +53,11 @@ static int	parse_line(char *line, t_game_state *state)
 	while (i < line_len)
 		if (ft_strchr("01PEC", line[i++]) == NULL)
 			return (-4);
-	ft_lstadd_back(&(state->map_rows), ft_lstnew(line));
 	state->map.height++;
 	return (1);
 }
 
-void	validate_map(int fd, t_game_state *state)
+void	parse_map(int fd, t_game_state *state)
 {
 	char	*line;
 	int		result;
@@ -85,14 +85,16 @@ void	validate_map(int fd, t_game_state *state)
 			quit_with_error(ERR_INVALID_MAP, state);
 }
 
-void	parse_map(t_game_state *state)
+char	*generate_map_mem(t_game_state *state)
 {
-	int	map_size;
+	int		map_size;
+	char	*map_mem;
 
 	map_size = state->map.width * state->map.height;
-	state->map_mem = ft_calloc(map_size, 1);
-	if (state->map_mem == NULL)
+	map_mem = ft_calloc(map_size, 1);
+	if (map_mem == NULL)
 		quit_with_error(errno, state);
+	return (map_mem);
 }
 
 void	get_map(t_game_state *state)
@@ -103,8 +105,8 @@ void	get_map(t_game_state *state)
 	if (fd < 0)
 		quit_with_error(errno, state);
 	state->map_fd = fd;
-	validate_map(fd, state);
+	parse_map(fd, state);
 	close(fd);
-	parse_map(state);
-	generate_map(state);
+	state->map_mem = generate_map_mem(state);
+	assemble_map_mem(state);
 }

@@ -137,14 +137,14 @@ void			quit_with_error(int my_errno, t_game_state *t_state);
 int				validate_args(int argc, char *argv[]);
 t_game_state	*parse_arg(char *args[]);
 void			get_map(t_game_state *state);
-void			generate_map(t_game_state *state);
+void			assemble_map_mem(t_game_state *state);
 int				draw_map(t_game_state *state);
 void			clear(t_game_state *state);
 int				key_handler(int keycode, void *param);
-int				destroy_handler(void);
-int				handle_expose(t_game_state *state);
+int				destroy_handler(void *state);
+int				handle_expose(void *state);
 void			move(t_directions direction, t_game_state *state);
-void			finish(void);
+void			finish(t_game_state *state);
 
 // mlx helpers
 /**
@@ -167,5 +167,9 @@ void			init_walls(t_game_state *state);
 void			render_map(t_game_state *state);
 void			init_map(t_game_state *state);
 void			print_movements(t_game_state *state);
+
+void			clear_mlx_image(void *mlx_ptr, t_image_data *data);
+void			clear_mlx_sprites(t_game_state *state);
+void			clear(t_game_state *state);
 
 #endif

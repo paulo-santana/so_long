@@ -6,21 +6,11 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 16:49:08 by psergio-          #+#    #+#             */
-/*   Updated: 2021/08/08 16:49:08 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/08/27 18:15:06 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	clear(t_game_state *state)
-{
-	if (state == NULL)
-		return ;
-	free(state->map_mem);
-	ft_lstclear(&(state->map_rows), free);
-	close(state->map_fd);
-	free(state);
-}
 
 void	subscribe_events(t_game_state *state)
 {
@@ -41,16 +31,13 @@ void	start_game(t_game_state *state)
 	if (mlx->mlx_ptr == NULL)
 		quit_with_error(errno, state);
 	mlx->window = mlx_new_window(mlx->mlx_ptr, state->map.width * MAP_TILE_SIZE,
-			state->map.height * MAP_TILE_SIZE,
-			state->program_name);
+			state->map.height * MAP_TILE_SIZE, state->program_name);
 	if (mlx->window == NULL)
 		quit_with_error(errno, state);
 	subscribe_events(state);
 	init_map(state);
+	printf("\n");
 	mlx_loop(mlx->mlx_ptr);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->window);
-	mlx_destroy_display(mlx->mlx_ptr);
-	free(mlx->mlx_ptr);
 }
 
 int	main(int argc, char *argv[])
@@ -63,5 +50,4 @@ int	main(int argc, char *argv[])
 		quit_with_error(errno, NULL);
 	state = parse_arg(argv);
 	start_game(state);
-	clear(state);
 }

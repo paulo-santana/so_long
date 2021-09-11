@@ -14,5 +14,6 @@
 
 void	print_movements(t_game_state *state)
 {
-	printf("Movements: %lu\n", state->movement_count);
+	ft_putstr_fd("\rMovements: ", 1);
+	ft_putnbr_fd(state->movement_count, 1);
 }

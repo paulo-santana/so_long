@@ -37,7 +37,7 @@ void	handle_exit(t_game_state *state)
 	state->game_finished = 1;
 	state->movement_count++;
 	print_movements(state);
-	printf("Congratula...tulations!\n");
+	printf("\nCongratulations!\n");
 }
 
 void	move_to(size_t intended_position, t_game_state *state)

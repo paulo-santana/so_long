@@ -12,8 +12,9 @@
 
 #include "so_long.h"
 
-void	finish(void)
+void	finish(t_game_state *state)
 {
+	clear(state);
 	exit(0);
 }
 
@@ -23,7 +24,7 @@ int	key_handler(int keycode, void *param)
 
 	state = param;
 	if (keycode == XK_Escape || keycode == 'q')
-		finish();
+		finish(state);
 	if (keycode == 'w')
 		move(DIRECTION_UP, state);
 	else if (keycode == 'a')
@@ -36,14 +37,20 @@ int	key_handler(int keycode, void *param)
 	return (0);
 }
 
-int	destroy_handler(void)
+int	destroy_handler(void *param)
 {
-	finish();
+	t_game_state	*state;
+
+	state = param;
+	finish(state);
 	return (0);
 }
 
-int	handle_expose(t_game_state *state)
+int	handle_expose(void *param)
 {
+	t_game_state	*state;
+
+	state = param;
 	draw_map(state);
 	return (0);
 }

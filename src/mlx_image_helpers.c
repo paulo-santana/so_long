@@ -26,3 +26,8 @@ void	generate_mlx_image(t_game_state *state,
 	data->height = height;
 	data->mem_width = data->line_size / (data->bits_per_pixel / 8);
 }
+
+void	clear_mlx_image(void *mlx_ptr, t_image_data *data)
+{
+	mlx_destroy_image(mlx_ptr, data->img_ptr);
+}

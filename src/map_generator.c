@@ -33,7 +33,7 @@ void	get_map_entity(t_game_state *state, int i, char entity)
 		state->exits++;
 }
 
-void	generate_map(t_game_state *state)
+void	assemble_map_mem(t_game_state *state)
 {
 	t_list	*lst;
 	char	*row;

@@ -54,6 +54,7 @@ SRC_BONUS_FILES = main_bonus.c				\
 			animated_sprites_bonus.c		\
 			animated_sprite_helpers_bonus.c \
 			rng_bonus.c						\
+			cleaning_bonus.c				\
 			enemy_bonus.c
 
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
@@ -89,12 +90,13 @@ bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
 
 
 run: bonus
-	#$(VALGRIND) ./$(NAME) files/bad_map.ber || \
-	#$(VALGRIND) ./$(NAME) files/no_player.ber || \
-	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
-	#$(VALGRIND) ./$(NAME) files/no_collectible.ber ||
-	$(VALGRIND) ./$(NAME) files/not_rectangular.ber
-	#$(VALGRIND) ./$(NAME) files/simple.ber
+	#$(VALGRIND) ./$(NAME) files/bad_map.ber
+	#$(VALGRIND) ./$(NAME) files/no_player.ber
+	#$(VALGRIND) ./$(NAME) files/no_exit.ber
+	#$(VALGRIND) ./$(NAME) files/no_collectible.ber
+	#$(VALGRIND) ./$(NAME) files/not_rectangular.ber
+	$(VALGRIND) ./$(NAME) files/simple.ber
+	#$(VALGRIND) ./$(NAME) files/multiple_enemies.ber
 
 clean:
 	$(RM) $(OBJ)

@@ -12,8 +12,9 @@
 
 #include "so_long_bonus.h"
 
-void	finish(void)
+void	finish(t_game_state *state)
 {
+	clear(state);
 	exit(0);
 }
 
@@ -23,7 +24,7 @@ int	key_handler(int keycode, void *param)
 
 	state = param;
 	if (keycode == XK_Escape || keycode == 'q')
-		finish();
+		finish(state);
 	if (keycode == 'w')
 		move(DIRECTION_UP, state);
 	else if (keycode == 'a')
@@ -49,9 +50,12 @@ int	loop_handler(t_game_state *state)
 	return (0);
 }
 
-int	destroy_handler(void)
+int	destroy_handler(void *param)
 {
-	finish();
+	t_game_state	*state;
+
+	state = param;
+	finish(state);
 	return (0);
 }
 

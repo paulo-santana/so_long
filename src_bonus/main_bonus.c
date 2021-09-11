@@ -12,16 +12,6 @@
 
 #include "so_long_bonus.h"
 
-void	clear(t_game_state *state)
-{
-	if (state == NULL)
-		return ;
-	free(state->map_mem);
-	ft_lstclear(&(state->map_rows), free);
-	close(state->map_fd);
-	free(state);
-}
-
 void	subscribe_events(t_game_state *state)
 {
 	t_mlx	*mlx;

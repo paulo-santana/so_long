@@ -177,10 +177,10 @@ void			generate_map(t_game_state *state);
 int				draw_map(t_game_state *state);
 void			clear(t_game_state *state);
 int				key_handler(int keycode, void *param);
-int				destroy_handler(void);
+int				destroy_handler(void *param);
 int				handle_expose(t_game_state *state);
 void			move(t_directions direction, t_game_state *state);
-void			finish(void);
+void			finish(t_game_state *state);
 
 // mlx helpers
 /**

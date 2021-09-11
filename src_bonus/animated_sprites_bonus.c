@@ -76,7 +76,7 @@ void	prepare_next_frame(t_game_state *state)
 	animate_enemies(state, frame);
 	if (frame++ > 3)
 		frame = 0;
-	if (enemy_tick++ > 5)
+	if (enemy_tick++ > 2)
 	{
 		move_enemies(state);
 		enemy_tick = 0;

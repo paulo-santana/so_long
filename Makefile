@@ -6,7 +6,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
-VALGRIND = valgrind --leak-check=full -q
+VALGRIND = valgrind --leak-check=full --show-leak-kinds=all -s \
+		   --track-origins=yes
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -30,6 +31,7 @@ SRC_FILES = main.c					\
 			map_generator.c			\
 			map_drawer.c			\
 			output.c				\
+			cleaning.c				\
 			wall_helpers.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -86,13 +88,13 @@ bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
 	cp $(NAME) a.out #for debugging
 
 
-run: bonus
+run: all
 	#$(VALGRIND) ./$(NAME) files/bad_map.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_player.ber || \
 	#$(VALGRIND) ./$(NAME) files/no_exit.ber || \
-	#$(VALGRIND) ./$(NAME) files/no_collectible.ber || \
-	#$(VALGRIND) ./$(NAME) files/not_rectangular.ber ||
-	$(VALGRIND) ./$(NAME) files/multiple_enemies.ber
+	#$(VALGRIND) ./$(NAME) files/no_collectible.ber ||
+	$(VALGRIND) ./$(NAME) files/not_rectangular.ber
+	#$(VALGRIND) ./$(NAME) files/simple.ber
 
 clean:
 	$(RM) $(OBJ)

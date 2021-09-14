@@ -60,23 +60,20 @@ SRC_BONUS_FILES = main_bonus.c				\
 SRC_BONUS = $(addprefix $(SRC_BONUS_DIR)/, $(SRC_BONUS_FILES))
 OBJ_BONUS = $(SRC_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-CFLAGS = -g3 -Wall -Werror -Wextra
-CC = clang $(CFLAGS)
-LIBFLAGS = -lft -lXext -lX11 -lmlx 
+CFLAGS = -Wall -Werror -Wextra
+CC = clang
+LIBFLAGS = -lft -lXext -lX11 -lmlx
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC)  $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
-	cp $(NAME) a.out #for debugging
+$(NAME): $(OBJ_DIR) $(LIBFT) $(MLX) $(OBJ)
+	$(CC) $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
-	@mkdir -p obj
-	$(CC) -c -I$(INCLUDE_DIR) -o $@ $<
+	$(CC) $(CFLAGS) -c -I$(INCLUDE_DIR) -o $@ $<
 
 $(OBJ_DIR)/%.o: $(SRC_BONUS_DIR)/%.c $(BONUS_HEADERS)
-	@mkdir -p obj
-	$(CC) -c -I$(INCLUDE_DIR) -o $@ $<
+	$(CC) $(CFLAGS) -c -I$(INCLUDE_DIR) -o $@ $<
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
@@ -84,9 +81,12 @@ $(LIBFT):
 $(MLX):
 	make -C $(MLX_DIR)
 
-bonus: $(LIBFT) $(MLX) $(OBJ_BONUS)
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
+
+bonus: $(OBJ_DIR) $(LIBFT) $(MLX) $(OBJ_BONUS)
+	touch bonus
 	$(CC) $(OBJ_BONUS) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
-	cp $(NAME) a.out #for debugging
 
 
 run: bonus
@@ -101,18 +101,11 @@ run: bonus
 clean:
 	$(RM) $(OBJ)
 	$(RM) $(OBJ_BONUS)
-	$(RM) vgcore*
+	$(RM) bonus
 
 fclean: clean
-	@echo cleaning minilibx
-	@make -C $(MLX_DIR) clean
-	@echo done!
-	@echo cleaning libft...
-	@make -C $(LIBFT_DIR) fclean
-	@echo done!
+	make -C $(MLX_DIR) clean
+	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
-	$(RM) a.out
 
 re: fclean all
-
-.PHONY: $(LIBFT)

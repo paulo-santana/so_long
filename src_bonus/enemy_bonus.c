@@ -54,8 +54,6 @@ static size_t	think(t_game_state *state, size_t position)
 	size_t		intended_position;
 
 	intended_position = get_intended_position(state, position);
-	printf("[enemy %d] i'm thinking of going to %d >:)\n",
-		(int)position, (int)intended_position);
 	if (state->map_mem[intended_position] == ENTITY_WALL
 		|| state->map_mem[intended_position] == ENTITY_COLLECTIBLE
 		|| state->map_mem[intended_position] == ENTITY_EXIT
